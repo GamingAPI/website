@@ -1,7 +1,7 @@
-import {default as AsyncapiRustServer} from '../../../definitions/Rust_server.json';
+import {default as AsyncapiRustServer} from '../../../../../definitions/Rust_server.json';
 import { parse } from "@asyncapi/parser";
 import "@asyncapi/react-component/styles/default.min.css";
-import MainMenu from '../../components/MainMenu';
+import MainMenu from '../../../../components/MainMenu';
 import { AsyncApiComponentWP } from "@asyncapi/react-component";
 
 export default function RustServerAPI({ asyncapi, error }) {

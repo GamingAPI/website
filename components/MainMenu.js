@@ -122,7 +122,7 @@ export default function MainMenu(props) {
         </DrawerHeader>
         <Divider />
         <List>
-          <Link href="/api/rustserver/">
+          <Link href="/services/rust/server/">
             <ListItem button key={"Rust API"}>
               <ListItemIcon>
                 <InboxIcon />
