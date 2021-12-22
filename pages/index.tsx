@@ -1,6 +1,5 @@
-import * as language from '../language/en.json';
 import MainMenu from '../components/MainMenu';
-export default function Home() {
+export const Main: React.FunctionComponent<any> = () => {
   return (
       <MainMenu>
         <main>

@@ -6,23 +6,19 @@ import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 
 const drawerWidth = 240;
 
-const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
+const Main = styled(
+    'main', 
+    { shouldForwardProp: (prop) => prop !== 'open' }
+  )(
   ({ theme, open }) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
@@ -67,10 +63,14 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-export default function MainMenu(props) {
+interface MainMenuProps {
+  sideMenu: any;
+}
+
+export const MainMenu: React.FunctionComponent<MainMenuProps> = (props) => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const {children} = props;
+  const {children, sideMenu} = props;
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -97,9 +97,15 @@ export default function MainMenu(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Persistent drawer
-          </Typography>
+          <IconButton
+            color="inherit"
+            edge="start"
+          >
+            <Typography variant="h6" noWrap component="div">
+              Services
+            </Typography>
+          </IconButton>
+          
         </Toolbar>
       </AppBar>
       <Drawer
@@ -121,27 +127,8 @@ export default function MainMenu(props) {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List>
-          <Link href="/services/rust/server/">
-            <ListItem button key={"Rust API"}>
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary={"Rust API"} />
-            </ListItem>
-          </Link>
-        </List>
+        {sideMenu}
         <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
