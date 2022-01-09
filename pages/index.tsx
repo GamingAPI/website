@@ -1,12 +1,15 @@
-import MainMenu from '../components/MainMenu';
+import { List } from '@mui/material';
+import {MainMenu} from '../components/MainMenu';
 export const Main: React.FunctionComponent<any> = () => {
   return (
-      <MainMenu>
-        <main>
-          <h1 className="title">
-            Welcome to <a href="https://nextjs.org">Event gaming API!</a>
-          </h1>
-        </main>
+    <MainMenu sideMenu={
+      <List>
+      </List>}>
+      <main>
+        <h1 className="title">
+          Welcome to <a href="https://nextjs.org">Event gaming API!</a>
+        </h1>
+      </main>
 
       <footer>
         Powered by React, Next.js, NATS, AsyncAPI, OpenAPI, Docker, Rust, 

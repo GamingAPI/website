@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ReactFlow, { Controls as FlowControls, useStoreActions, useStoreState, Background, useZoomPanHelper, BackgroundVariant } from 'react-flow-renderer';
+import ReactFlow, { Controls as FlowControls, useStoreActions, useStoreState, Background, useZoomPanHelper, BackgroundVariant, MiniMap } from 'react-flow-renderer';
 import { AsyncAPIDocument } from '@asyncapi/parser';
 import { Controls } from './Controls';
 import nodeTypes from './Nodes';
@@ -8,7 +8,7 @@ import { calculateNodesForDynamicLayout } from './utils/node-calculator';
 
 interface FlowDiagramProps {
   parsedSpec: AsyncAPIDocument;
-  relations: [];
+  externalApplications: any[];
 }
 interface AutoLayoutProps {
   elementsToRender: any;
@@ -42,25 +42,20 @@ const AutoLayout: React.FunctionComponent<AutoLayoutProps> = ({ elementsToRender
   return null;
 };
 
-export const FlowDiagram: React.FunctionComponent<FlowDiagramProps> = ({ parsedSpec, relations }) => {
+export const FlowDiagram: React.FunctionComponent<FlowDiagramProps> = ({ parsedSpec, externalApplications }) => {
   const [loaded, setLoaded] = useState(false);
-  const title = parsedSpec.info().title();
-
-  const elements = getElementsFromAsyncAPISpec(parsedSpec);
-
+  const elements = getElementsFromAsyncAPISpec(parsedSpec, externalApplications);
+  console.log(elements);
   const handleLoaded = (reactFlowInstance: any) => {
     setLoaded(true);
     reactFlowInstance.fitView();
   };
 
   return (
-    <ReactFlow nodeTypes={nodeTypes} elements={elements} minZoom={0.1} onLoad={handleLoaded}>
+    <ReactFlow nodeTypes={nodeTypes} elements={elements} minZoom={0.1} onLoad={handleLoaded} nodesDraggable={false}>
       <Background color="#d1d1d3" variant={BackgroundVariant.Dots} gap={20} size={1} className="bg-gray-200" />
       {loaded && <AutoLayout elementsToRender={elements} />}
-      <Controls />
-      <div className="-mt-20">
-        <FlowControls style={{ bottom: '105px' }} />
-      </div>
+      <MiniMap />
     </ReactFlow>
   );
 };

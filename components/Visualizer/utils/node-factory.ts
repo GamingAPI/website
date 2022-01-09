@@ -32,14 +32,9 @@ const buildFlowElementsForOperation = ({ operation, spec, applicationLinkType, d
   return filteredChannels.reduce((nodes: any, channel) => {
 
     const { channelModel, operationModel, messagesModel } = channel;
-    // v0/rust/servers/{server_id}/events/started
-    // v0/rust/servers/{server_id}/events/stopping
-
-    // [v0,rust,servers,{server_id},events,started]
-    // [v0,rust,servers,{server_id},events,stopping]
     const node = {
       id: `${operation}-${channel.channel}`,
-      type: `${operation}Node`,
+      type: `channelNode`,
       data: {
         title: operationModel.id(),
         channel: channel.channel,
@@ -48,7 +43,6 @@ const buildFlowElementsForOperation = ({ operation, spec, applicationLinkType, d
           title: message.uid(),
           description: message.description(),
         })),
-
         spec,
         description: channelModel.description(),
         operationId: operationModel.id(),
@@ -71,66 +65,74 @@ const buildFlowElementsForOperation = ({ operation, spec, applicationLinkType, d
     return [...nodes, node, connectorNode];
   }, []);
 };
-const buildFlowElementsForOperationOld = ({ operation, spec, applicationLinkType, data }: { operation: 'publish' | 'subscribe'; spec: AsyncAPIDocument; applicationLinkType: string, data: any }) => {
-  const filteredChannels = getChannelsByOperation(operation, spec);
-  return filteredChannels.reduce((nodes: any, channel) => {
-    const { channelModel, operationModel, messagesModel } = channel;
-
-    const node = {
-      id: `${operation}-${channel.channel}`,
-      type: `${operation}Node`,
+const buildFlowElementsForExternal = ({ operation, externalApplications, applicationLinkType, data }: { operation: 'publish' | 'subscribe'; externalApplications: any[]; applicationLinkType: string, data: any }) => {
+  return Object.entries(externalApplications).reduce((nodes: any, [app, externalApplication]) => {
+    if(operation === externalApplication.operation){
+      return [];
+    }
+    const appId = `external-${app}-${operation}`;
+    const externalApplicationNode = {
+      id: appId,
+      type: `externalApplicationNode`,
       data: {
-        title: operationModel.id(),
-        channel: channel.channel,
-        tags: operationModel.tags(),
-        messages: messagesModel.map((message) => ({
-          title: message.uid(),
-          description: message.description(),
-        })),
-
-        spec,
-        description: channelModel.description(),
-        operationId: operationModel.id(),
+        title: externalApplication.title,
+        path: externalApplication.path,
         elementType: operation,
-        theme: operation === 'subscribe' ? 'yellow' : 'green',
+        theme: 'grey',
         ...data
       },
       position: { x: 0, y: 0 },
     };
-
-    const connectorNode = {
-      id: `${operation}-${channel.channel}-to-application`,
-      // type: 'smoothstep',
-      // animated: true,
-      // label: messagesModel.map(message => message.uid()).join(','),
-      style: { stroke: applicationLinkType === 'target' ? '#7ee3be' : 'orange', strokeWidth: 4 },
-      source: applicationLinkType === 'target' ? `${operation}-${channel.channel}` : 'application',
-      target: applicationLinkType === 'target' ? 'application' : `${operation}-${channel.channel}`,
-    };
-    return [...nodes, node, connectorNode];
+    const channelConnectorNodes = externalApplication.channels.reduce((preNodes: any, channel: string) => {
+      const connectorNode = {
+        id: `${appId}-${channel}-to-channel`,
+        // type: 'smoothstep',
+        // animated: true,
+        // label: messagesModel.map(message => message.uid()).join(','),
+        style: { stroke: 'gray', strokeWidth: 4 },
+        source: applicationLinkType === 'target' ? `${operation}-${channel}` : appId,
+        target: applicationLinkType === 'target' ? appId : `${operation}-${channel}`,
+      };
+      return [...preNodes, connectorNode];
+    }, []);
+    return [...nodes, ...channelConnectorNodes, externalApplicationNode];
   }, []);
 };
 
-export const getElementsFromAsyncAPISpec = (spec: AsyncAPIDocument): Elements => {
-  const publishNodes = buildFlowElementsForOperation({
+export const getElementsFromAsyncAPISpec = (spec: AsyncAPIDocument, externalApplications: any[]): Elements => {
+  const externalPublishApplication = buildFlowElementsForExternal({
     operation: 'publish',
-    spec,
+    externalApplications,
     applicationLinkType: 'target',
     data: { columnToRenderIn: 'col-1' },
   });
 
-  const subscribeNodes = buildFlowElementsForOperation({
-    operation: 'subscribe',
+  const publishNodes = buildFlowElementsForOperation({
+    operation: 'publish',
     spec,
-    applicationLinkType: 'source',
-    data: { columnToRenderIn: 'col-3' },
+    applicationLinkType: 'target',
+    data: { columnToRenderIn: 'col-2' },
   });
 
   const applicationNode = {
     id: 'application',
     type: 'applicationNode',
-    data: { spec, elementType: 'application', theme: 'indigo', columnToRenderIn: 'col-2' },
-    position: { x: 0, y: 0 },
+    data: { spec, elementType: 'application', theme: 'indigo', columnToRenderIn: 'col-3' },
+    position: { x: 0, y: 0 }
   };
-  return [...publishNodes, applicationNode, ...subscribeNodes];
+
+  const subscribeNodes = buildFlowElementsForOperation({
+    operation: 'subscribe',
+    spec,
+    applicationLinkType: 'source',
+    data: { columnToRenderIn: 'col-4' },
+  });
+  const externalSubscribeApplication = buildFlowElementsForExternal({
+    operation: 'subscribe',
+    externalApplications,
+    applicationLinkType: 'target',
+    data: { columnToRenderIn: 'col-5' },
+  });
+
+  return [...externalPublishApplication, ...publishNodes, applicationNode, ...subscribeNodes, ...externalSubscribeApplication];
 };

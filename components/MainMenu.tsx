@@ -12,14 +12,15 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { Link } from '@mui/material';
 
 const drawerWidth = 240;
 
 const Main = styled(
     'main', 
     { shouldForwardProp: (prop) => prop !== 'open' }
-  )(
-  ({ theme, open }) => ({
+  )<any>(
+  (({ theme, open }) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
     transition: theme.transitions.create('margin', {
@@ -34,12 +35,12 @@ const Main = styled(
       }),
       marginLeft: 0,
     }),
-  }),
+  }))
 );
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
+})<any>(({ theme, open }) => ({
   transition: theme.transitions.create(['margin', 'width'], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -64,13 +65,15 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 interface MainMenuProps {
-  sideMenu: any;
+  sideMenu?: any;
+  topMenu?: any;
+  hideSideMenu?: boolean;
 }
 
 export const MainMenu: React.FunctionComponent<MainMenuProps> = (props) => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const {children, sideMenu} = props;
+  const {children, sideMenu, topMenu, hideSideMenu = false} = props;
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -86,26 +89,30 @@ export const MainMenu: React.FunctionComponent<MainMenuProps> = (props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar position="fixed" open={open} style={{backgroundColor:"#333"}}>
         <Toolbar>
           <IconButton
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
-            sx={{ mr: 2, ...(open && { display: 'none' }) }}
+            sx={{ mr: 2, ...((open || hideSideMenu) && { display: 'none' }) }}
           >
             <MenuIcon />
           </IconButton>
-          <IconButton
-            color="inherit"
-            edge="start"
-          >
-            <Typography variant="h6" noWrap component="div">
-              Services
-            </Typography>
-          </IconButton>
-          
+          <Link variant="h6">
+            About
+          </Link>
+          <Link href="/services" variant="h6">
+            Services
+          </Link>
+          <Link href="/games" variant="h6">
+            Games
+          </Link>
+          <Link href="/tools" variant="h6">
+            Tools
+          </Link>
+          {topMenu}
         </Toolbar>
       </AppBar>
       <Drawer
@@ -130,7 +137,7 @@ export const MainMenu: React.FunctionComponent<MainMenuProps> = (props) => {
         {sideMenu}
         <Divider />
       </Drawer>
-      <Main open={open}>
+      <Main open={open} style={{padding:0}}>
         <DrawerHeader />
         {children}
       </Main>

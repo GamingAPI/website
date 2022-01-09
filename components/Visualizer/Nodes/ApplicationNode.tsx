@@ -2,8 +2,7 @@ import React from 'react';
 import { Handle, Position } from 'react-flow-renderer';
 import { AsyncAPIDocument } from '@asyncapi/parser';
 import ReactMarkdown from 'react-markdown';
-import Grid from '@mui/material/Grid';
-import { Chip, Typography } from '@mui/material';
+import { Chip, Typography, Grid } from '@mui/material';
 import { Box } from '@mui/system';
 
 interface IData {
@@ -70,7 +69,7 @@ export const ApplicationNode: React.FunctionComponent<ApplicationNodeProps> = ({
         </Grid>
         <Grid item xs={12}>
           <Typography variant="body2">
-            <ReactMarkdown>{description}</ReactMarkdown>
+            <ReactMarkdown>{description || ''}</ReactMarkdown>
           </Typography>
         </Grid>
         <Grid item xs={12}>

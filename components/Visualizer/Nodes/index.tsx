@@ -1,11 +1,11 @@
-import PublishNode from './PublishNode';
+import ChannelNode from './ChannelNode';
 import ApplicationNode from './ApplicationNode';
-import SubscribeNode from './SubscribeNode';
+import ExternalApplicationNode from './ExternalApplicationNode';
 
 const nodeTypes = {
-  publishNode: PublishNode,
-  subscribeNode: SubscribeNode,
-  applicationNode: ApplicationNode
+  channelNode: ChannelNode,
+  applicationNode: ApplicationNode,
+  externalApplicationNode: ExternalApplicationNode
 };
 
 export default nodeTypes;
