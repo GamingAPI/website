@@ -43,7 +43,7 @@ ENV PORT 3000
 # Uncomment the following line in case you want to disable telemetry.
 ENV NEXT_TELEMETRY_DISABLED 1
 
-CMD ["node", "server.js"]
+CMD ["yarn", "start"]
 
 HEALTHCHECK --interval=5s --timeout=5s --retries=3 \
     CMD curl --fail http://localhost:3000 || exit 1
