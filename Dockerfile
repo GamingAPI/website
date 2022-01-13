@@ -44,3 +44,6 @@ ENV PORT 3000
 ENV NEXT_TELEMETRY_DISABLED 1
 
 CMD ["node", "server.js"]
+
+HEALTHCHECK --interval=5s --timeout=5s --retries=3 \
+    CMD curl --fail http://localhost:3000 || exit 1
