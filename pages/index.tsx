@@ -1,6 +1,6 @@
 import { List } from '@mui/material';
 import {MainMenu} from '../components/MainMenu';
-export const Main: React.FunctionComponent<any> = () => {
+const Main: React.FunctionComponent<any> = () => {
   return (
     <MainMenu sideMenu={
       <List>
@@ -108,3 +108,5 @@ export const Main: React.FunctionComponent<any> = () => {
     </MainMenu>
   )
 }
+
+export default Main;

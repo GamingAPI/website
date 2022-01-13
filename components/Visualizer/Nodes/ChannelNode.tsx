@@ -26,7 +26,7 @@ export const PublishNode: React.FunctionComponent<PublishNodeProps> = ({
       />
       <Grid item xs={10} container spacing={2}>
         <Grid item xs={12}>
-          <center><Typography variant="h6">{channel}</Typography></center>
+          <Typography variant="h6" align='center'>{channel}</Typography>
         </Grid>
         {description && (
           <Grid item xs={12}>

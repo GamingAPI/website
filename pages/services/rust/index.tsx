@@ -11,41 +11,28 @@ function Games() {
           alignItems="center"
           direction={{ xs: 'column', sm: 'row' }}>
         <Grid item xs={12} height={300} width={"100%"} style={{  
-          backgroundImage: "url(" + "/img/games/rust.jpg" + ")",
+          backgroundImage: "url(" + "/img/games/rust-background-1.jpg" + ")",
           backgroundPosition: 'center',
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat'
         }} />
 
-        <Grid container item xs={6}>
+        <Grid container item xs={6} style={{margin: "40px 0 40px 0"}}>
           <Grid item xs={12}>
             <Typography variant="h2">Rust</Typography>
           </Grid>
           <Grid item xs={12}>
-            <Typography>The only aim in Rust is to survive. Everything wants you to die - the island’s wildlife and other inhabitants, the environment, other survivors. Do whatever it takes to last another night...</Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>With rust you will be able to  </Typography>
-          </Grid>
-          <Grid container item xs={12}
-            justifyContent="center"
-            alignItems="center"
-            direction={{ xs: 'column', sm: 'row' }}>
-            <Grid item xs={12} md={4}>
-              <Typography>Hej</Typography>
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <Typography>Hej</Typography>
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <Typography>Hej</Typography>
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <Typography>Hej</Typography>
-            </Grid>
+            <Typography>The only aim in Rust is to survive. <Typography display="inline" color="#bb5c55">Everything wants you to die</Typography> - the island’s wildlife and other inhabitants, the environment, other survivors. <Typography display="inline" color="#bb5c55">Do whatever it takes to last another night</Typography>...</Typography>
           </Grid>
         </Grid>
+        <Grid item xs={12} height={733} width={"100%"} style={{  
+          backgroundImage: "url(" + "/img/games/rust-background-2.jpg" + ")",
+          backgroundPosition: 'center',
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat'
+        }} />
       </Grid>
+
     </MainMenu>
   )
 }

@@ -100,16 +100,16 @@ export const MainMenu: React.FunctionComponent<MainMenuProps> = (props) => {
           >
             <MenuIcon />
           </IconButton>
-          <Link variant="h6">
+          <Link href="/" style={{margin: "0 10px 0 10px"}} variant="h6">
             About
           </Link>
-          <Link href="/services" variant="h6">
+          <Link href="/services/flows" style={{margin: "0 10px 0 10px"}} variant="h6">
             Services
           </Link>
-          <Link href="/games" variant="h6">
+          <Link href="/games" style={{margin: "0 10px 0 10px"}} variant="h6">
             Games
           </Link>
-          <Link href="/tools" variant="h6">
+          <Link href="/tools" style={{margin: "0 10px 0 10px"}} variant="h6">
             Tools
           </Link>
           {topMenu}

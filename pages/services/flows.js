@@ -22,14 +22,6 @@ export default function SystemFlow({ documents, error }) {
             <ListItemText primary={"Flows"} />
           </ListItem>
         </Link>
-        <Link href="/services/about">
-          <ListItem button key={"About"}>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary={"About"} />
-          </ListItem>
-        </Link>
       </List>
      }
     >

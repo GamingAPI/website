@@ -1,4 +1,4 @@
-import {default as AsyncapiRustServer} from '../../../../../definitions/rust_server.json';
+import {default as AsyncapiRustProcessor} from '../../../../../definitions/rust_processor.json';
 import { parse } from "@asyncapi/parser";
 import "@asyncapi/react-component/styles/default.min.css";
 import {MainMenu} from '../../../../components/MainMenu';
@@ -6,7 +6,7 @@ import { AsyncApiComponentWP } from "@asyncapi/react-component";
 import { Link, List, ListItem, ListItemText, ListItemIcon } from '@mui/material';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 
-export default function RustServerAPI({ asyncapi, error }) {
+export default function RustProcessorAPI({ asyncapi, error }) {
 	const config = {
 	  schemaID: 'custom-spec',
 	  show: {
@@ -18,20 +18,20 @@ export default function RustServerAPI({ asyncapi, error }) {
     <MainMenu
       sideMenu={
         <List>
-          <Link href="/services/rust/server/flow">
-            <ListItem button key={"Rust server flow"}>
+          <Link href="/services/rust/processor/flow">
+            <ListItem button key={"Processor flow"}>
               <ListItemIcon>
                 <InboxIcon />
               </ListItemIcon>
-              <ListItemText primary={"Rust server flow"} />
+              <ListItemText primary={"Rust processor flow"} />
             </ListItem>
           </Link>
-          <Link href="/services/rust/server/api">
-            <ListItem button key={"Rust server API"}>
+          <Link href="/services/rust/processor/api">
+            <ListItem button key={"Processor API"}>
               <ListItemIcon>
                 <InboxIcon />
               </ListItemIcon>
-              <ListItemText primary={"Rust server API"} />
+              <ListItemText primary={"Rust processor API"} />
             </ListItem>
           </Link>
         </List>
@@ -49,7 +49,7 @@ export async function getStaticProps() {
   let error = null;
   try{
     // validate and parse
-    const parsed = await parse(JSON.stringify(AsyncapiRustServer), {path: '../definitions/'});
+    const parsed = await parse(JSON.stringify(AsyncapiRustProcessor), {path: '../definitions/'});
     // Circular references are not supported. See https://github.com/asyncapi/parser-js/issues/293
     document = JSON.stringify(parsed.json());
   }catch(e){

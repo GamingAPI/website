@@ -24,7 +24,7 @@ function Services() {
           backgroundColor:"#333"
         }}
       >
-        <a href="./processor">
+        <a href="./processor/flow">
           <Item style={{padding: 0, width: 400}}>
             <Grid container spacing={0} height={"100vh"} style={{  
                 backgroundImage: "url(" + "/img/games/rust.jpg" + ")",
@@ -38,7 +38,7 @@ function Services() {
             </Grid>
           </Item>
         </a>
-        <a href="./server">
+        <a href="./server/flow">
           <Item style={{padding: 0, width: 400}}>
             <Grid container spacing={0} height={"100vh"} style={{  
                 backgroundImage: "url(" + "/img/games/rust.jpg" + ")",
