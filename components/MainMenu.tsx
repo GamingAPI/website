@@ -73,7 +73,26 @@ interface MainMenuProps {
 export const MainMenu: React.FunctionComponent<MainMenuProps> = (props) => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const {children, sideMenu, topMenu, hideSideMenu = false} = props;
+  let {
+    children, 
+    sideMenu, 
+    topMenu,
+    hideSideMenu = false
+  } = props;
+  if(!topMenu) {
+    topMenu = (<><Link href="/" style={{margin: "0 10px 0 10px"}} variant="h6" color={"#282a36"}>
+    About
+  </Link>
+  <Link href="/services/flows" style={{margin: "0 10px 0 10px"}} variant="h6" color={"#282a36"}>
+    Services
+  </Link>
+  <Link href="/games" style={{margin: "0 10px 0 10px"}} variant="h6" color={"#282a36"}>
+    Games
+  </Link>
+  <Link href="/tools" style={{margin: "0 10px 0 10px"}} variant="h6" color={"#282a36"}>
+    Tools
+  </Link></>);
+  }
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -89,7 +108,7 @@ export const MainMenu: React.FunctionComponent<MainMenuProps> = (props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <CssBaseline />
-      <AppBar position="fixed" open={open} style={{backgroundColor:"#333"}}>
+      <AppBar position="fixed" open={open} style={{backgroundColor:"#fff"}}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -100,18 +119,6 @@ export const MainMenu: React.FunctionComponent<MainMenuProps> = (props) => {
           >
             <MenuIcon />
           </IconButton>
-          <Link href="/" style={{margin: "0 10px 0 10px"}} variant="h6">
-            About
-          </Link>
-          <Link href="/services/flows" style={{margin: "0 10px 0 10px"}} variant="h6">
-            Services
-          </Link>
-          <Link href="/games" style={{margin: "0 10px 0 10px"}} variant="h6">
-            Games
-          </Link>
-          <Link href="/tools" style={{margin: "0 10px 0 10px"}} variant="h6">
-            Tools
-          </Link>
           {topMenu}
         </Toolbar>
       </AppBar>

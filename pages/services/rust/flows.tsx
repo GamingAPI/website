@@ -1,13 +1,17 @@
 import {default as AsyncapiRustServer} from '../../../../definitions/rust_server.json';
 import {default as AsyncapiRustProcessor} from '../../../../definitions/rust_processor.json';
+import {default as AsyncapiRustPublicAPI} from '../../../../definitions/rust_public_api.json';
 import { parse, AsyncAPIDocument } from "@asyncapi/parser";
 import "@asyncapi/react-component/styles/default.min.css";
 import {MainMenu, SystemFlowDiagram} from '../../../components';
 import { Link, List, ListItem, ListItemText, ListItemIcon, Grid } from '@mui/material';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import RustMenu from '../../../components/pages/services/rust/menu';
-
-export default function SystemFlow({ documents, error }) {
+interface SystemFlowProps{
+  documents: any;
+  error: any;
+}
+export default function SystemFlow({ documents, error } : SystemFlowProps) {
   const parsedDocuments = JSON.parse(documents).map((document) => {
     return new AsyncAPIDocument(document);
   });
@@ -32,9 +36,11 @@ export async function getStaticProps() {
   // validate and parse
   const parsed = await parse(JSON.stringify(AsyncapiRustServer), {path: '../definitions/'});
   const parsed2 = await parse(JSON.stringify(AsyncapiRustProcessor), {path: '../definitions/'});
+  const parsed3 = await parse(JSON.stringify(AsyncapiRustPublicAPI), {path: '../definitions/'});
   // Circular references are not supported. See https://github.com/asyncapi/parser-js/issues/293
   documents.push(parsed.json());
   documents.push(parsed2.json());
+  documents.push(parsed3.json());
 
   return {
     props: {

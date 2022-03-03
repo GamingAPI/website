@@ -52,15 +52,20 @@ const buildFlowElementsForOperation = ({ operation, spec, applicationLinkType, d
       },
       position: { x: 0, y: 0 },
     };
-
+    let target = applicationLinkType === 'target' ? 'application' : `${operation}-${channel.channel}`;
+    let source = applicationLinkType === 'target' ? `${operation}-${channel.channel}` : 'application';
+    if(operation === 'subscribe') {
+      source = applicationLinkType === 'target' ? 'application' : `${operation}-${channel.channel}`;
+      target = applicationLinkType === 'target' ? `${operation}-${channel.channel}` : 'application';
+    }
     const connectorNode = {
       id: `${operation}-${channel.channel}-to-application`,
       // type: 'smoothstep',
       // animated: true,
       // label: messagesModel.map(message => message.uid()).join(','),
       style: { stroke: applicationLinkType === 'target' ? '#7ee3be' : 'orange', strokeWidth: 4 },
-      source: applicationLinkType === 'target' ? `${operation}-${channel.channel}` : 'application',
-      target: applicationLinkType === 'target' ? 'application' : `${operation}-${channel.channel}`,
+      source,
+      target
     };
     return [...nodes, node, connectorNode];
   }, []);
@@ -84,14 +89,20 @@ const buildFlowElementsForExternal = ({ operation, externalApplications, applica
       position: { x: 0, y: 0 },
     };
     const channelConnectorNodes = externalApplication.channels.reduce((preNodes: any, channel: string) => {
+      let target = applicationLinkType === 'target' ? `${operation}-${channel}` : appId;
+      let source = applicationLinkType === 'target' ? appId : `${operation}-${channel}`;
+      if(operation === 'subscribe') {
+        source = applicationLinkType === 'target' ? `${operation}-${channel}` : appId;
+        target = applicationLinkType === 'target' ? appId : `${operation}-${channel}`
+      }
       const connectorNode = {
         id: `${appId}-${channel}-to-channel`,
         // type: 'smoothstep',
         // animated: true,
         // label: messagesModel.map(message => message.uid()).join(','),
         style: { stroke: 'gray', strokeWidth: 4 },
-        source: applicationLinkType === 'target' ? `${operation}-${channel}` : appId,
-        target: applicationLinkType === 'target' ? appId : `${operation}-${channel}`,
+        target,
+        source,
       };
       return [...preNodes, connectorNode];
     }, []);
@@ -124,7 +135,7 @@ export const getElementsFromAsyncAPISpec = (spec: AsyncAPIDocument, externalAppl
   const subscribeNodes = buildFlowElementsForOperation({
     operation: 'subscribe',
     spec,
-    applicationLinkType: 'source',
+    applicationLinkType: 'target',
     data: { columnToRenderIn: 'col-4' },
   });
   const externalSubscribeApplication = buildFlowElementsForExternal({

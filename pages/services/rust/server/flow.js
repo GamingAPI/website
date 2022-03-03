@@ -1,5 +1,6 @@
 import {default as AsyncapiRustServer} from '../../../../../definitions/rust_server.json';
 import {default as AsyncapiRustProcessor} from '../../../../../definitions/rust_processor.json';
+import {default as AsyncapiRustPublicAPI} from '../../../../../definitions/rust_public_api.json';
 import { parse, AsyncAPIDocument } from "@asyncapi/parser";
 import "@asyncapi/react-component/styles/default.min.css";
 import {MainMenu, Visualizer} from '../../../../components';
@@ -48,6 +49,8 @@ export async function getStaticProps() {
   // validate and parse
   const parsed = await parse(JSON.stringify(AsyncapiRustServer), {path: '../definitions/'});
   const parsed2 = await parse(JSON.stringify(AsyncapiRustProcessor), {path: '../definitions/'});
+  const parsed3 = await parse(JSON.stringify(AsyncapiRustPublicAPI), {path: '../definitions/'});
+
   const rel = {};
   for (const [path, _] of Object.entries(parsed.channels())) {
     rel[path] = [];
@@ -59,6 +62,16 @@ export async function getStaticProps() {
       }
       if(channel.hasSubscribe()) {
         rel[path].push({title: parsed2.info().title(), path: '../processor', operation: 'subscribe'});
+      }
+    }
+  }
+  for (const [path, channel] of Object.entries(parsed3.channels())) {
+    if(rel[path] !== undefined){
+      if(channel.hasPublish()) {
+        rel[path].push({title: parsed3.info().title(), path: '../processor', operation: 'publish'});
+      }
+      if(channel.hasSubscribe()) {
+        rel[path].push({title: parsed3.info().title(), path: '../processor', operation: 'subscribe'});
       }
     }
   }

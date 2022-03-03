@@ -34,16 +34,14 @@ export function getRelations(asyncApiDocs: AsyncAPIDocument[]) {
             const title = doc.info().title();
 
             if (channel.hasPublish()) {
-              if (application.pub.has(title)) {
-                throw new Error(`${title} is already publishing to ${channel}`);
+              if (!application.pub.has(title)) {
+                application.pub.set(title, channel.json());
               }
-              application.pub.set(title, channel.json());
             }
             if (channel.hasSubscribe()) {
-              if (application.sub.has(title)) {
-                throw new Error(`${title} is already subscribed to ${channel}`);
+              if (!application.sub.has(title)) {
+                application.sub.set(title, channel.json());
               }
-              application.sub.set(title, channel.json());
             }
           });
         }

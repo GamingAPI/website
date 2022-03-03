@@ -4,14 +4,6 @@ import { Link, List, ListItem, ListItemText, ListItemIcon, Grid } from '@mui/mat
 function RustMenu() {
   return (
     <List>
-      <Link href="/services/rust/flow">
-        <ListItem button key={"Overview"}>
-          <ListItemIcon>
-            <InboxIcon />
-          </ListItemIcon>
-          <ListItemText primary={"Overview"} />
-        </ListItem>
-      </Link>
       <Link href="/services/rust/services">
         <ListItem button key={"Rust services"}>
           <ListItemIcon>

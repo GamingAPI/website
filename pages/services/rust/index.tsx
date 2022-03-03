@@ -5,7 +5,18 @@ import RustMenu from '../../../components/pages/services/rust/menu';
 
 function Games() {
   return (
-    <MainMenu sideMenu={<RustMenu/>}>
+    <MainMenu 
+      sideMenu={<RustMenu/>}
+      topMenu={
+      <>
+        <Link href="/" style={{margin: "0 10px 0 10px"}} variant="h6">
+          Home
+        </Link>
+        <Link href="/services/rust" style={{margin: "0 10px 0 10px"}} variant="h6">
+          Rust
+        </Link>
+      </>}
+      >
       <Grid container spacing={0} 
           justifyContent="center"
           alignItems="center"

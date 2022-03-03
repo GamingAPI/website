@@ -35,3 +35,7 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# Definition files fetches from repo
+definitions/*
+!definitions/.keep
