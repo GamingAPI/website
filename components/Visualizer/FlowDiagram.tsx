@@ -45,14 +45,13 @@ const AutoLayout: React.FunctionComponent<AutoLayoutProps> = ({ elementsToRender
 export const FlowDiagram: React.FunctionComponent<FlowDiagramProps> = ({ parsedSpec, externalApplications }) => {
   const [loaded, setLoaded] = useState(false);
   const elements = getElementsFromAsyncAPISpec(parsedSpec, externalApplications);
-  console.log(elements);
   const handleLoaded = (reactFlowInstance: any) => {
     setLoaded(true);
     reactFlowInstance.fitView();
   };
 
   return (
-    <ReactFlow nodeTypes={nodeTypes} elements={elements} minZoom={0.1} onLoad={handleLoaded} nodesDraggable={false}>
+    <ReactFlow nodeTypes={nodeTypes} elements={elements} minZoom={0.1} onLoad={handleLoaded} nodesDraggable={true}>
       <Background color="#d1d1d3" variant={BackgroundVariant.Dots} gap={20} size={1} className="bg-gray-200" />
       {loaded && <AutoLayout elementsToRender={elements} />}
       <MiniMap />

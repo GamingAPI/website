@@ -3,27 +3,17 @@ import {default as AsyncapiRustProcessor} from '../../../definitions/rust_proces
 import { parse, AsyncAPIDocument } from "@asyncapi/parser";
 import "@asyncapi/react-component/styles/default.min.css";
 import {MainMenu, SystemFlowDiagram} from '../../components';
-import { Link, List, ListItem, ListItemText, ListItemIcon, Grid } from '@mui/material';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
+import { Grid } from '@mui/material';
+import {TopMenu} from '../../components/menus/Backend';
 
-export default function SystemFlow({ documents, error }) {
-  const parsedDocuments = JSON.parse(documents).map((document) => {
+const SystemFlow: React.FunctionComponent<any> = ({ documents, error }) => {
+  const parsedDocuments = JSON.parse(documents).map((document: any) => {
     return new AsyncAPIDocument(document);
   });
   return (
     <MainMenu
-     sideMenu={
-      <List>
-        <Link href="/services/flows">
-          <ListItem button key={"Flows"}>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Flows"} />
-          </ListItem>
-        </Link>
-      </List>
-     }
+      topMenu={<TopMenu/>}
+      hideSideMenu={true}
     >
       <Grid container spacing={3} height={"100vh"} width={"100%"}>
         <Grid item xs={12}>
@@ -33,7 +23,7 @@ export default function SystemFlow({ documents, error }) {
     </MainMenu>
   )
 }
-
+export default SystemFlow;
 
 // This function gets called at build time
 export async function getStaticProps() {

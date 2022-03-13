@@ -5,7 +5,7 @@ import { getRelations } from './Relations';
 import { getReactFlowData } from './Flow';
 import dagre from 'dagre';
 import nodeTypes from '../Visualizer/Nodes';
-
+import ELK from 'elkjs/lib/elk.bundled.js';
 const dagreGraph = new dagre.graphlib.Graph();
 dagreGraph.setDefaultEdgeLabel(() => ({}));
 
@@ -49,25 +49,76 @@ const getLayoutedElements = (elements: any, direction = 'TB') => {
   });
 };
 
+const DEFAULT_WIDTH = 350
+const DEFAULT_HEIGHT = 400
+const elk = new ELK({
+  defaultLayoutOptions: {
+    'elk.algorithm': 'mrtree',
+    'elk.direction': 'RIGHT',
+    'elk.spacing.nodeNode': '75',
+    'elk.layered.spacing.nodeNodeBetweenLayers': '75'
+  }
+})
+
+const createGraphLayout = async (elements: any): Promise<any> => {
+  const nodes: any[] = []
+  const edges: any[] = []
+
+  elements.forEach((el: any) => {
+    if (isNode(el)) {
+      nodes.push({
+        id: el.id,
+        width: el.__rf?.width ?? DEFAULT_WIDTH,
+        height: el.__rf?.height ?? DEFAULT_HEIGHT
+      })
+    } else {
+      edges.push({
+        id: el.id,
+        target: el.target,
+        source: el.source
+      })
+    }
+  })
+
+  const newGraph = await elk.layout({
+    id: 'root',
+    children: nodes,
+    edges: edges
+  })
+  return elements.map((el: any) => {
+    if (isNode(el)) {
+      const node = newGraph?.children?.find((n: any) => n.id === el.id)
+      if (node?.x && node?.y && node?.width && node?.height) {
+        el.position = {
+          x: node.x - node.width / 2 + Math.random() / 1000,
+          y: node.y - node.height / 2
+        }
+      }
+    }
+    return el
+  })
+}
+
 interface SystemFlowDiagramProps {
   parsedSpecs: AsyncAPIDocument[];
 }
 
 export const SystemFlowDiagram: React.FunctionComponent<SystemFlowDiagramProps> = ({ parsedSpecs }) => {
   const [loaded, setLoaded] = useState(false);
+  const [elements, setElements] = useState([]);
   const metrics = getRelations(parsedSpecs);
-  console.log(metrics);
-  const elements = getReactFlowData(metrics);
+  const rawElements = getReactFlowData(metrics);
 
-  const layoutedElements = getLayoutedElements(elements);  
   console.log(elements);
-  const handleLoaded = (reactFlowInstance: any) => {
+  const handleLoaded = async (reactFlowInstance: any) => {
+    const layoutedElements = await createGraphLayout(rawElements);  
+    setElements(layoutedElements);
     setLoaded(true);
     reactFlowInstance.fitView();
   };
 
   return (
-    <ReactFlow nodeTypes={nodeTypes} elements={layoutedElements} minZoom={0.1} onLoad={handleLoaded}>
+    <ReactFlow nodeTypes={nodeTypes} elements={elements} minZoom={0.1} onLoad={handleLoaded}>
       <Background color="#d1d1d3" variant={BackgroundVariant.Dots} gap={20} size={1} className="bg-gray-200" />
       <MiniMap />
     </ReactFlow>

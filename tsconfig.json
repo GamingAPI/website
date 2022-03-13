@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "scripts/bundleAsyncAPIDocument.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "scripts/bundleAsyncAPIDocument.js", "pages/auth/signin.tsxz"],
   "exclude": ["node_modules"]
 }

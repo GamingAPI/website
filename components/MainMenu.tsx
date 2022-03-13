@@ -68,17 +68,20 @@ interface MainMenuProps {
   sideMenu?: any;
   topMenu?: any;
   hideSideMenu?: boolean;
+  startOpenSideMenu?: boolean;
+  noSideMenu?: boolean;
 }
 
 export const MainMenu: React.FunctionComponent<MainMenuProps> = (props) => {
-  const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
   let {
     children, 
     sideMenu, 
     topMenu,
-    hideSideMenu = false
+    hideSideMenu = false,
+    startOpenSideMenu = false
   } = props;
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(startOpenSideMenu);
   if(!topMenu) {
     topMenu = (<><Link href="/" style={{margin: "0 10px 0 10px"}} variant="h6" color={"#282a36"}>
     About
@@ -117,7 +120,7 @@ export const MainMenu: React.FunctionComponent<MainMenuProps> = (props) => {
             edge="start"
             sx={{ mr: 2, ...((open || hideSideMenu) && { display: 'none' }) }}
           >
-            <MenuIcon />
+            <MenuIcon color="primary" />
           </IconButton>
           {topMenu}
         </Toolbar>
@@ -146,7 +149,105 @@ export const MainMenu: React.FunctionComponent<MainMenuProps> = (props) => {
       </Drawer>
       <Main open={open} style={{padding:0}}>
         <DrawerHeader />
-        {children}
+        <main>
+          {children}
+        </main>
+        <footer>
+          <Typography variant="overline" className="title">
+            masterpiece from <a href='https://eventstack.tech'>EventStack</a>
+          </Typography>
+        </footer>
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+        />
+        <style jsx>{`
+          .container {
+            min-height: 100vh;
+            padding: 0 0.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+          }
+
+          main {
+            padding: 5rem 0;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+          }
+
+          footer {
+            width: 100%;
+            height: 100px;
+            border-top: 1px solid #eaeaea;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+
+          footer img {
+            margin-left: 0.5rem;
+          }
+
+          footer a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+
+          a {
+            color: inherit;
+            text-decoration: none;
+          }
+
+          .title a {
+            color: #0070f3;
+            text-decoration: none;
+          }
+
+          .title a:hover,
+          .title a:focus,
+          .title a:active {
+            text-decoration: underline;
+          }
+
+          .title {
+            margin: 0;
+            line-height: 1.15;
+            font-size: 4rem;
+          }
+
+          .title,
+          .description {
+            text-align: center;
+          }
+
+          @media (max-width: 600px) {
+            .grid {
+              width: 100%;
+              flex-direction: column;
+            }
+          }
+        `}</style>
+
+        <style jsx global>{`
+          html,
+          body {
+            padding: 0;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+              Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+              sans-serif;
+          }
+
+          * {
+            box-sizing: border-box;
+          }
+        `}</style>
       </Main>
     </Box>
   );

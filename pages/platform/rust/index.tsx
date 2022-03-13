@@ -1,21 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 import { Grid, Link, List, ListItem, ListItemIcon, ListItemText, Stack, Typography } from '@mui/material';
 import {MainMenu} from '../../../components/MainMenu';
-import RustMenu from '../../../components/pages/services/rust/menu';
+import { SideMenu, TopMenu } from '../../../components/menus/backend/Rust';
 
-function Games() {
+const Games: React.FunctionComponent<any> = () => {
   return (
     <MainMenu 
-      sideMenu={<RustMenu/>}
-      topMenu={
-      <>
-        <Link href="/" style={{margin: "0 10px 0 10px"}} variant="h6">
-          Home
-        </Link>
-        <Link href="/services/rust" style={{margin: "0 10px 0 10px"}} variant="h6">
-          Rust
-        </Link>
-      </>}
+      sideMenu={<SideMenu/>}
+      topMenu={<TopMenu/>}
       >
       <Grid container spacing={0} 
           justifyContent="center"

@@ -3,8 +3,7 @@ import { Grid, List, Stack, Typography } from '@mui/material';
 import {MainMenu} from '../../../components/MainMenu';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
-import RustMenu from '../../../components/pages/services/rust/menu';
-
+import { SideMenu, TopMenu } from '../../../components/menus/backend/Rust';
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -15,14 +14,14 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function Services() {
   return (
-    <MainMenu sideMenu={<RustMenu/>}>
+    <MainMenu 
+      sideMenu={<SideMenu/>}
+      topMenu={<TopMenu/>}
+    >
       <Stack
         justifyContent="center"
         alignItems="center"
         direction={{ xs: 'column', sm: 'row' }}
-        style={{
-          backgroundColor:"#333"
-        }}
       >
         <a href="./processor/flow">
           <Item style={{padding: 0, width: 400}}>

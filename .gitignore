@@ -39,3 +39,6 @@ yarn-error.log*
 # Definition files fetches from repo
 definitions/*
 !definitions/.keep
+
+
+.env

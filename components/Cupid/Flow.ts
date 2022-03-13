@@ -19,7 +19,7 @@ export function getReactFlowData(metrics: any): Elements {
       for (const [subscriber, metadata] of operations.sub) {
         const service = subscriber.replace(/\s/g, '');
         getNode(service, visitedServices, subscriber, nodes);
-        const edge = { id: `edge${edgId}`, source: `${service}`, target: serverChannelId, animated: true, type: 'edgeType', arrowHeadType: 'arrowclosed' };
+        const edge = { id: `edge${edgId}`, source: `${service}`, target: serverChannelId, type: 'edgeType', arrowHeadType: 'arrowclosed' };
         nodes.push(edge);
         edgId++;
       }
@@ -27,7 +27,7 @@ export function getReactFlowData(metrics: any): Elements {
       for (const [publisher, metadata] of operations.pub) {
         const service = publisher.replace(/\s/g, '');
         getNode(service, visitedServices, publisher, nodes);
-        const edge = { id: `edge${edgId}`, source: serverChannelId, target: `${service}`, animated: true, type: 'edgeType', arrowHeadType: 'arrowclosed' };
+        const edge = { id: `edge${edgId}`, source: serverChannelId, target: `${service}`, type: 'edgeType', arrowHeadType: 'arrowclosed' };
         nodes.push(edge);
         edgId++;
       }

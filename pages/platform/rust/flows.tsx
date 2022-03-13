@@ -4,9 +4,8 @@ import {default as AsyncapiRustPublicAPI} from '../../../../definitions/rust_pub
 import { parse, AsyncAPIDocument } from "@asyncapi/parser";
 import "@asyncapi/react-component/styles/default.min.css";
 import {MainMenu, SystemFlowDiagram} from '../../../components';
-import { Link, List, ListItem, ListItemText, ListItemIcon, Grid } from '@mui/material';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import RustMenu from '../../../components/pages/services/rust/menu';
+import { Grid } from '@mui/material';
+import { SideMenu, TopMenu } from '../../../components/menus/backend/Rust';
 interface SystemFlowProps{
   documents: any;
   error: any;
@@ -17,7 +16,8 @@ export default function SystemFlow({ documents, error } : SystemFlowProps) {
   });
   return (
     <MainMenu
-     sideMenu={<RustMenu/>}
+     sideMenu={<SideMenu/>}
+     topMenu={<TopMenu/>}
     >
       <Grid container spacing={3} height={"100vh"} width={"100%"}>
         <Grid item xs={12}>
