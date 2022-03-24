@@ -10,6 +10,8 @@ RUN npm ci
 
 # Rebuild the source code only when needed
 FROM node:16-alpine AS builder
+RUN apk update
+RUN apk add git
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
@@ -35,8 +37,8 @@ RUN adduser --system --uid 1001 nextjs
 # You only need to copy next.config.js if you are NOT using the default configuration
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=builder --chown=nextjs:nodejs /app/package.json ./package.json
-COPY --from=builder --chown=nextjs:nodejs /app/.env.production ./.env.production
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/definitions ./definitions
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
