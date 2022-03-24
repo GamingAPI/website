@@ -1,6 +1,6 @@
-import {default as AsyncapiRustServer} from '../../../../../definitions/rust_server.json';
-import {default as AsyncapiRustProcessor} from '../../../../../definitions/rust_processor.json';
-import {default as AsyncapiRustPublicAPI} from '../../../../../definitions/rust_public_api.json';
+import {default as AsyncapiRustServer} from '../../../../definitions/rust_server.json';
+import {default as AsyncapiRustProcessor} from '../../../../definitions/rust_processor.json';
+import {default as AsyncapiRustPublicAPI} from '../../../../definitions/rust_public_api.json';
 import { parse, AsyncAPIDocument } from "@asyncapi/parser";
 import "@asyncapi/react-component/styles/default.min.css";
 import {MainMenu, SystemFlowDiagram} from '../../../../components';
@@ -12,7 +12,7 @@ interface SystemFlowProps{
   error: any;
 }
 export default function SystemFlow({ documents, error } : SystemFlowProps) {
-  const parsedDocuments = JSON.parse(documents).map((document: any) => {
+  const parsedDocuments = documents.map((document: any) => {
     return AsyncAPIDocument.parse(document);
   });
   return (
@@ -32,20 +32,16 @@ export default function SystemFlow({ documents, error } : SystemFlowProps) {
 
 // This function gets called at build time
 export async function getStaticProps() {
-  let documents = [];
+  let documents: any = [];
   let error = null;
   // validate and parse
   const parsed = await parse(JSON.stringify(AsyncapiRustServer), {path: '../definitions/'});
   const parsed2 = await parse(JSON.stringify(AsyncapiRustProcessor), {path: '../definitions/'});
   const parsed3 = await parse(JSON.stringify(AsyncapiRustPublicAPI), {path: '../definitions/'});
-  // Circular references are not supported. See https://github.com/asyncapi/parser-js/issues/293
-  documents.push(parsed.json());
-  documents.push(parsed2.json());
-  documents.push(parsed3.json());
-
+  documents = documents.map((doc: AsyncAPIDocument) => AsyncAPIDocument.stringify(doc));
   return {
     props: {
-      documents: JSON.stringify(documents),
+      documents: documents,
       error
     },
   }
