@@ -1,6 +1,3 @@
-import {default as AsyncapiRustServer} from '../../../../../../definitions/rust_server.json';
-import {default as AsyncapiRustProcessor} from '../../../../../../definitions/rust_processor.json';
-import {default as AsyncapiRustPublicAPI} from '../../../../../../definitions/rust_public_api.json';
 import { parse, AsyncAPIDocument } from "@asyncapi/parser";
 import "@asyncapi/react-component/styles/default.min.css";
 import {MainMenu} from '../../../../../components/MainMenu';
