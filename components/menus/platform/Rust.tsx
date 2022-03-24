@@ -6,43 +6,6 @@ import { Link, List, ListItem, ListItemText, ListItemIcon, Typography, Divider }
 import * as React from 'react';
 import { HtmlTooltip } from '../../HtmlTooltip';
 import StorageIcon from '@mui/icons-material/Storage';
-export const TopMenu: React.FunctionComponent<any> = () => {
-  return (
-    <>
-      <Link href="/platform/profile" style={{margin: "0 10px 0 10px"}} variant="h6" color={"#282a36"}>
-      Profile
-      </Link>
-      
-      <HtmlTooltip
-        title={
-          <React.Fragment>
-            <Typography variant="caption" color="inherit">Switch to other games to know more about how to interact with the GaminAPI network and the game server</Typography>
-          </React.Fragment>
-        }
-        placement="bottom"
-      >
-        <Link href="/platform/games" style={{margin: "0 10px 0 10px"}} variant="h6" color={"#282a36"}>
-        Games
-        </Link>
-      </HtmlTooltip>
-      
-      <HtmlTooltip
-        title={
-          <React.Fragment>
-            <Typography variant="caption" color="inherit">Interested in how other services are interacting together to form the GamingAPI network? Then this is for you!</Typography>
-          </React.Fragment>
-        }
-        placement="bottom"
-      >
-        <Link href="/backend" style={{margin: "0 10px 0 10px"}} variant="h6" color={"#282a36"}>
-        Backend
-        </Link>
-      </HtmlTooltip>
-    </>
-  );
-}
-
-
 
 export const SideMenu: React.FunctionComponent<any> = () => {
   return (
@@ -56,7 +19,7 @@ export const SideMenu: React.FunctionComponent<any> = () => {
       }
       placement="right"
     >
-      <Link href='/platform/rust'>
+      <Link href='/platform/games/rust/getting-started'>
         <ListItem button>
           <ListItemIcon>
             <ModeIcon />
@@ -66,10 +29,6 @@ export const SideMenu: React.FunctionComponent<any> = () => {
       </Link>
     </HtmlTooltip>
     
-    <Divider />
-    <ListItem>
-      <ListItemText primary={'Documentation'} secondary={'Give you different kind of documentation to explain how the system works'}/>
-    </ListItem>
     <HtmlTooltip
       title={
         <React.Fragment>
@@ -79,7 +38,7 @@ export const SideMenu: React.FunctionComponent<any> = () => {
       }
       placement="right"
     >
-      <Link href='/platform/rust/flows'>
+      <Link href='/platform/games/rust/flows'>
         <ListItem button>
           <ListItemIcon>
             <AccountTreeIcon />
@@ -92,55 +51,17 @@ export const SideMenu: React.FunctionComponent<any> = () => {
     <HtmlTooltip
       title={
         <React.Fragment>
-          <Typography variant="h6" color="inherit">API</Typography>
-          <Typography variant="caption" color="inherit">Read the API documentation for how you can interact with the GamingAPI network</Typography>
-        </React.Fragment>
-      }
-      placement="right"
-    >
-      <Link href='/platform/rust/api'>
-        <ListItem button>
-          <ListItemIcon>
-            <SummarizeIcon />
-          </ListItemIcon>
-          <ListItemText primary={'API'} />
-        </ListItem>
-      </Link>
-    </HtmlTooltip>
-    
-    <HtmlTooltip
-      title={
-        <React.Fragment>
-          <Typography variant="h6" color="inherit">AsyncAPI document</Typography>
-          <Typography variant="caption" color="inherit">Get the raw AsyncAPI document which defines how you interact with the GamingAPI network</Typography>
-        </React.Fragment>
-      }
-      placement="right"
-    >
-      <Link href='/platform/rust/asyncapi'>
-        <ListItem button>
-          <ListItemIcon>
-            <ArticleIcon />
-          </ListItemIcon>
-          <ListItemText primary={'AsyncAPI document'} />
-        </ListItem>
-      </Link>
-    </HtmlTooltip>
-    
-    <HtmlTooltip
-      title={
-        <React.Fragment>
           <Typography variant="caption" color="inherit">Want to know more how the events reaches your application?</Typography>
         </React.Fragment>
       }
       placement="right"
     >
-      <Link href='/backend/rust/'>
+      <Link href='/platform/games/rust/services'>
         <ListItem button>
           <ListItemIcon>
             <StorageIcon />
           </ListItemIcon>
-          <ListItemText primary={'Rust Backend'} />
+          <ListItemText primary={'Rust services'} />
         </ListItem>
       </Link>
     </HtmlTooltip>

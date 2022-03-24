@@ -1,18 +1,19 @@
-import {default as AsyncapiRustServer} from '../../../../definitions/rust_server.json';
-import {default as AsyncapiRustProcessor} from '../../../../definitions/rust_processor.json';
-import {default as AsyncapiRustPublicAPI} from '../../../../definitions/rust_public_api.json';
+import {default as AsyncapiRustServer} from '../../../../../definitions/rust_server.json';
+import {default as AsyncapiRustProcessor} from '../../../../../definitions/rust_processor.json';
+import {default as AsyncapiRustPublicAPI} from '../../../../../definitions/rust_public_api.json';
 import { parse, AsyncAPIDocument } from "@asyncapi/parser";
 import "@asyncapi/react-component/styles/default.min.css";
-import {MainMenu, SystemFlowDiagram} from '../../../components';
+import {MainMenu, SystemFlowDiagram} from '../../../../components';
 import { Grid } from '@mui/material';
-import { SideMenu, TopMenu } from '../../../components/menus/backend/Rust';
+import { SideMenu } from '../../../../components/menus/platform/Rust';
+import {TopMenu} from '../../../../components/menus/Public';
 interface SystemFlowProps{
   documents: any;
   error: any;
 }
 export default function SystemFlow({ documents, error } : SystemFlowProps) {
-  const parsedDocuments = JSON.parse(documents).map((document) => {
-    return new AsyncAPIDocument(document);
+  const parsedDocuments = JSON.parse(documents).map((document: any) => {
+    return AsyncAPIDocument.parse(document);
   });
   return (
     <MainMenu

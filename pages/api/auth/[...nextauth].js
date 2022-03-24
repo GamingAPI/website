@@ -2,7 +2,7 @@ import NextAuth from "next-auth"
 import GithubProvider from "next-auth/providers/github"
 
 export default NextAuth({
-  signIn: '/platform/login',
+  signIn: '/profile/login',
   // Configure one or more authentication providers
   providers: [
     GithubProvider({

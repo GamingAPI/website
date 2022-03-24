@@ -2,11 +2,11 @@ import { Button, Grid, Typography, Paper } from '@mui/material';
 import React from 'react';
 import { MainMenu } from '../../components/MainMenu';
 import { useSession, signIn } from 'next-auth/react';
-import { TopMenu } from '../../components/menus/Platform';
+import { TopMenu } from '../../components/menus/Public';
 
 const Main: React.FunctionComponent<any> = () => {
 	const { data: session } = useSession();
-	if (session) {
+	if (session && session.user) {
 		return (
 			<MainMenu topMenu={<TopMenu />} hideSideMenu={true}>
 				<Grid
@@ -29,7 +29,7 @@ const Main: React.FunctionComponent<any> = () => {
 	return (
 		<>
 			Not signed in <br />
-			<button onClick={() => signIn()}>Sign in</button>
+			<button>Sign in</button>
 		</>
 	);
 };

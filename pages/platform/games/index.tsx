@@ -1,12 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 import { Grid, Link, List, Stack, Typography } from '@mui/material';
-import {MainMenu} from '../../components/MainMenu';
+import {MainMenu} from '../../../components/MainMenu';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
-import { typography } from '@mui/system';
-import {TopMenu} from '../../components/menus/Backend';
-import { signIn, useSession } from 'next-auth/react';
+import { TopMenu } from '../../../components/menus/Public';
 
+import {SideMenu} from '../../../components/menus/platform/index';
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -19,14 +18,14 @@ const Games: React.FunctionComponent<any> = () => {
   return (
     <MainMenu 
       topMenu={<TopMenu/>}
-      hideSideMenu={true}
+      sideMenu={<SideMenu/>}
     >
       <Stack
         justifyContent="center"
         alignItems="center"
         direction={{ xs: 'column', sm: 'row' }}
       >
-        <Link href="/backend/rust">
+        <Link href="/platform/games/rust">
           <Item style={{padding: 0, width: 400}}>
             <Grid container spacing={0} height={"100vh"} style={{  
                 backgroundImage: "url(" + "/img/games/rust.jpg" + ")",

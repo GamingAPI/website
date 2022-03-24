@@ -1,7 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-import { Grid, Link, List, ListItem, ListItemIcon, ListItemText, Stack, Typography } from '@mui/material';
-import {MainMenu} from '../../../components/MainMenu';
-import { SideMenu, TopMenu } from '../../../components/menus/backend/Rust';
+import { Grid, Typography } from '@mui/material';
+import {MainMenu} from '../../../../components/MainMenu';
+import { SideMenu } from '../../../../components/menus/platform/Rust';
+import {TopMenu} from '../../../../components/menus/Public';
 
 const Games: React.FunctionComponent<any> = () => {
   return (

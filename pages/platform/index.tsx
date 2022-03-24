@@ -2,14 +2,27 @@ import { Button, Grid, Typography, Paper} from '@mui/material';
 import React from "react";
 import {MainMenu} from '../../components/MainMenu';
 import Image from 'next/image';
-import { TopMenu } from '../../components/menus/Backend';
+import { TopMenu } from '../../components/menus/Public';
+import {SideMenu} from '../../components/menus/platform/index';
 
 const Main: React.FunctionComponent<any> = () => {
   return (
     <MainMenu 
-      hideSideMenu={true} 
+      sideMenu={<SideMenu/>}
       topMenu={<TopMenu/>}>
       <Grid container spacing={10} justifyContent="center" alignItems="center">
+        <Grid item xs={12} md={7} container spacing={6}>
+          <Grid item xs={12}>
+            <Typography variant="h2" className="title">
+              What makes a good developer platform?
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant="h6" className="title">
+               No idea, but let&apos;s find out! There are probably more information here then you need, help us find out what makes sense and which does not.
+            </Typography>
+          </Grid>
+        </Grid>
         <Grid item xs={12} md={7} container spacing={6}>
           <Grid item xs={12} md={6} container spacing={4}>
             <Grid item xs={12}>
@@ -23,7 +36,7 @@ const Main: React.FunctionComponent<any> = () => {
               </Typography>
             </Grid>
             <Grid item xs={12} style={{height:"300px"}}>
-              <Button variant="outlined" href="/backend/flows" style={{float:"right"}}>see system flows</Button>
+              <Button variant="outlined" href="/platform/flows" style={{float:"right"}}>see system flows</Button>
             </Grid>
           </Grid>
           <Grid item xs={12} md={6}>
@@ -46,11 +59,11 @@ const Main: React.FunctionComponent<any> = () => {
             </Grid>
             <Grid item xs={12}>
               <Typography variant="h6" className="title">
-                See how events flow for a specific game. Similar to system flow, but specifically shown for a game's perspective.
+                See how events flow for a specific game. Similar to system flow, but specifically shown for a game&apos;s perspective.
               </Typography>
             </Grid>
             <Grid item xs={12} style={{height:"300px"}}>
-              <Button variant="outlined" href="/backend/games" style={{float:"right"}}>see game flows</Button>
+              <Button variant="outlined" href="/platform/games" style={{float:"right"}}>see game flows</Button>
             </Grid>
           </Grid>
           <Grid item xs={12} md={6}>
@@ -77,7 +90,7 @@ const Main: React.FunctionComponent<any> = () => {
               </Typography>
             </Grid>
             <Grid item xs={12}>
-              <Button variant="outlined" href="/backend/games" style={{float:"right"}}>see application flows</Button>
+              <Button variant="outlined" href="/platform/games" style={{float:"right"}}>see application flows</Button>
             </Grid>
           </Grid>
           <Grid item xs={12} style={{height: '220px'}}>

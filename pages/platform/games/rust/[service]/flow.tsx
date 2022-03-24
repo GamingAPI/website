@@ -1,13 +1,14 @@
-import {default as AsyncapiRustServer} from '../../../../../definitions/rust_server.json';
-import {default as AsyncapiRustProcessor} from '../../../../../definitions/rust_processor.json';
-import {default as AsyncapiRustPublicAPI} from '../../../../../definitions/rust_public_api.json';
+import {default as AsyncapiRustServer} from '../../../../../../definitions/rust_server.json';
+import {default as AsyncapiRustProcessor} from '../../../../../../definitions/rust_processor.json';
+import {default as AsyncapiRustPublicAPI} from '../../../../../../definitions/rust_public_api.json';
 import { parse, AsyncAPIDocument } from "@asyncapi/parser";
 import "@asyncapi/react-component/styles/default.min.css";
-import {MainMenu, Visualizer} from '../../../../components';
+import {MainMenu, Visualizer} from '../../../../../components';
 import { Grid } from '@mui/material';
-import { SideMenu, TopMenu } from '../../../../components/menus/backend/RustService';
+import { SideMenu } from '../../../../../components/menus/platform/Rust';
+import { TopMenu } from '../../../../../components/menus/Public';
 
-const groupedApplications = {
+const groupedApplications: any = {
   "server": { document: AsyncapiRustServer, description: 'Test' }, 
   "processor": { document: AsyncapiRustProcessor, description: 'Test' }, 
   "public": { document: AsyncapiRustPublicAPI, description: 'Test' }
@@ -21,7 +22,7 @@ const FlowPage: React.FunctionComponent<any> = ({ asyncapi, externalApplications
     >
       <Grid container spacing={3} height={"100vh"}>
         <Grid item xs={12}>
-          <Visualizer asyncapi={new AsyncAPIDocument(JSON.parse(asyncapi))} externalApplications={JSON.parse(externalApplications)} />
+          <Visualizer asyncapi={AsyncAPIDocument.parse(asyncapi)} externalApplications={JSON.parse(externalApplications)} />
         </Grid>
       </Grid>
     </MainMenu>
@@ -30,7 +31,7 @@ const FlowPage: React.FunctionComponent<any> = ({ asyncapi, externalApplications
 export default FlowPage;
 
 export async function getStaticPaths() {
-  const paths = Object.keys(groupedApplications).map((key) => `/platform/rust/${key}/flow`);
+  const paths = Object.keys(groupedApplications).map((key) => `/platform/games/rust/${key}/flow`);
   return {
     paths,
     fallback: true,
@@ -43,16 +44,16 @@ export async function getStaticProps(context: any) {
   let application;
   for (const [name, app] of Object.entries(groupedApplications)) {
     if(name === service){
-      application = app.document;
+      application = (app as any).document;
     } else {
-      externalApps.push(app.document);
+      externalApps.push((app as any).document);
     }
   }
   let document = null;
   let error = null;
   // validate and parse
   const parsed = await parse(JSON.stringify(application), {path: '../definitions/'});
-  const rel = {};
+  const rel: any = {};
   for (const [path, _] of Object.entries(parsed.channels())) {
     rel[path] = [];
   }
@@ -71,9 +72,9 @@ export async function getStaticProps(context: any) {
     }
   }
 
-  const externalApplications = {};
+  const externalApplications: any = {};
   for (const [channel, applications] of Object.entries(rel)) {
-    for (const application of applications) {
+    for (const application of applications as any) {
       const appTitle = `${application.title}-${application.operation}`
       if(!externalApplications[appTitle]) {
         externalApplications[appTitle] = {
@@ -87,9 +88,7 @@ export async function getStaticProps(context: any) {
       } 
     }
   }
-  console.log(externalApplications);
-  // Circular references are not supported. See https://github.com/asyncapi/parser-js/issues/293
-  document = JSON.stringify(parsed.json());
+  document = AsyncAPIDocument.stringify(parsed);
 
   return {
     props: {

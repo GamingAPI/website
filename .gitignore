@@ -37,8 +37,6 @@ yarn-error.log*
 *.tsbuildinfo
 
 # Definition files fetches from repo
-definitions/*
-!definitions/.keep
-
+definition
 
 .env

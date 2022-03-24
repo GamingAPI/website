@@ -107,7 +107,7 @@ export const MainMenu: React.FunctionComponent<MainMenuProps> = (props) => {
   return (
     <Box sx={{ display: 'flex' }}>
       <Head>
-        <title>Event gaming API</title>
+        <title>Gaming API</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <CssBaseline />

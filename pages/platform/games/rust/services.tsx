@@ -1,9 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import { Grid, List, Stack, Typography } from '@mui/material';
-import {MainMenu} from '../../../components/MainMenu';
+import {MainMenu} from '../../../../components/MainMenu';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
-import { SideMenu, TopMenu } from '../../../components/menus/backend/Rust';
+import { SideMenu } from '../../../../components/menus/platform/Rust';
+import {TopMenu} from '../../../../components/menus/Public';
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
