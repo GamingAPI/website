@@ -1,21 +1,14 @@
-import {default as AsyncapiRustServer} from '../../../../../../definitions/rust_server.json';
-import {default as AsyncapiRustProcessor} from '../../../../../../definitions/rust_processor.json';
-import {default as AsyncapiRustPublicAPI} from '../../../../../../definitions/rust_public_api.json';
+
 import { parse, AsyncAPIDocument} from "@asyncapi/parser";
 import "@asyncapi/react-component/styles/default.min.css";
 import {MainMenu} from '../../../../../components/MainMenu';
 import { AsyncApiComponentWP } from "@asyncapi/react-component";
 import { SideMenu } from '../../../../../components/menus/platform/rust/Services';
 import { TopMenu } from '../../../../../components/menus/Public';
-
-const groupedApplications: any = {
-  "server": AsyncapiRustServer, 
-  "processor": AsyncapiRustProcessor, 
-  "public": AsyncapiRustPublicAPI
-}
+import { RustServices } from "../../../../../components/RustServices";
 
 export async function getStaticPaths() {
-  const paths = Object.keys(groupedApplications).map((key) => `/platform/games/rust/${key}/api`);
+  const paths = Object.keys(RustServices).map((key) => `/platform/games/rust/${key}/api`);
   return {
     paths,
     fallback: true,
@@ -29,12 +22,18 @@ const ApiPage: React.FunctionComponent<any> = ({ asyncapi, service, error }) => 
       errors: true,
 	  },
 	};
+  let flowComponent;
+  if(error || asyncapi === undefined) {
+    flowComponent = <h1>Could not show API document</h1>
+  } else {
+    flowComponent = <AsyncApiComponentWP schema={AsyncAPIDocument.parse(asyncapi)} config={config} error={JSON.parse(error)} />;
+  }
   return (
     <MainMenu
       sideMenu={<SideMenu service={service}/>}
       topMenu={<TopMenu/>}
     >
-      <AsyncApiComponentWP schema={asyncapi} config={config} error={JSON.parse(error)} />
+      {flowComponent}
     </MainMenu>
   )
 }
@@ -43,7 +42,8 @@ export default ApiPage;
 // This function gets called at build time
 export async function getStaticProps(context: any) {
   const service = context.params.service;
-  const application = groupedApplications[service];
+  if(service === undefined || RustServices[service] === undefined) return {props: {error: 'Could not find service'}};
+  const application = RustServices[service];
   let document = null;
   let error = null;
   try{

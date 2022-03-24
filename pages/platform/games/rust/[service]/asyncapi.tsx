@@ -8,12 +8,7 @@ import { SideMenu } from '../../../../../components/menus/platform/Rust';
 import { TopMenu } from '../../../../../components/menus/Public';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
-
-const groupedApplications: any = {
-  "server": { document: AsyncapiRustServer, description: 'Test' }, 
-  "processor": { document: AsyncapiRustProcessor, description: 'Test' }, 
-  "public": { document: AsyncapiRustPublicAPI, description: 'Test' }
-}
+import { RustServices } from "../../../../../components/RustServices";
 const RustServerAPI: React.FunctionComponent<any> = ({ asyncapi, error }) => {
   return (
     <MainMenu
@@ -21,7 +16,7 @@ const RustServerAPI: React.FunctionComponent<any> = ({ asyncapi, error }) => {
       topMenu={<TopMenu/>}
     >
       <SyntaxHighlighter language="json" style={dracula}>
-        {asyncapi}
+        {asyncapi || '{}'}
       </SyntaxHighlighter>
     </MainMenu>
   )
@@ -31,7 +26,7 @@ export default RustServerAPI;
 // This function gets called at build time
 export async function getStaticProps(context: any) {
   const service = context.params.service;
-  const application = groupedApplications[service] as any;
+  const application = RustServices[service] as any;
   let document = null;
   let error = null;
   try{
@@ -51,7 +46,7 @@ export async function getStaticProps(context: any) {
 }
 
 export async function getStaticPaths() {
-  const paths = Object.keys(groupedApplications).map((key) => `/platform/games/rust/${key}/asyncapi`);
+  const paths = Object.keys(RustServices).map((key) => `/platform/games/rust/${key}/asyncapi`);
   return {
     paths,
     fallback: true,

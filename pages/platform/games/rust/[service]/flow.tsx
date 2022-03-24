@@ -1,37 +1,35 @@
-import {default as AsyncapiRustServer} from '../../../../../../definitions/rust_server.json';
-import {default as AsyncapiRustProcessor} from '../../../../../../definitions/rust_processor.json';
-import {default as AsyncapiRustPublicAPI} from '../../../../../../definitions/rust_public_api.json';
 import { parse, AsyncAPIDocument } from "@asyncapi/parser";
 import "@asyncapi/react-component/styles/default.min.css";
 import {MainMenu, Visualizer} from '../../../../../components';
 import { Grid } from '@mui/material';
 import { SideMenu } from '../../../../../components/menus/platform/Rust';
 import { TopMenu } from '../../../../../components/menus/Public';
-
-const groupedApplications: any = {
-  "server": { document: AsyncapiRustServer, description: 'Test' }, 
-  "processor": { document: AsyncapiRustProcessor, description: 'Test' }, 
-  "public": { document: AsyncapiRustPublicAPI, description: 'Test' }
-}
+import { RustServices } from "../../../../../components/RustServices";
 
 const FlowPage: React.FunctionComponent<any> = ({ asyncapi, externalApplications, error }) => {
+  let flowComponent;
+  if(error || asyncapi === undefined) {
+    flowComponent=<h1>Could not show flow</h1>
+  } else {
+    flowComponent = <Grid container spacing={3} height={"100vh"}>
+      <Grid item xs={12}>
+        <Visualizer asyncapi={AsyncAPIDocument.parse(asyncapi)} externalApplications={JSON.parse(externalApplications)} />
+      </Grid>
+    </Grid>
+  }
   return (
     <MainMenu
       sideMenu={<SideMenu/>}
       topMenu={<TopMenu/>}
     >
-      <Grid container spacing={3} height={"100vh"}>
-        <Grid item xs={12}>
-          <Visualizer asyncapi={AsyncAPIDocument.parse(asyncapi)} externalApplications={JSON.parse(externalApplications)} />
-        </Grid>
-      </Grid>
+      {flowComponent}
     </MainMenu>
   )
 }
 export default FlowPage;
 
 export async function getStaticPaths() {
-  const paths = Object.keys(groupedApplications).map((key) => `/platform/games/rust/${key}/flow`);
+  const paths = Object.keys(RustServices).map((key) => `/platform/games/rust/${key}/flow`);
   return {
     paths,
     fallback: true,
@@ -40,13 +38,14 @@ export async function getStaticPaths() {
 // This function gets called at build time
 export async function getStaticProps(context: any) {
   const service = context.params.service;
+  if(service === undefined || RustServices[service] === undefined) return {props: {error: 'Could not find service'}};
   const externalApps = [];
   let application;
-  for (const [name, app] of Object.entries(groupedApplications)) {
+  for (const [name, app] of Object.entries(RustServices)) {
     if(name === service){
-      application = (app as any).document;
+      application = app;
     } else {
-      externalApps.push((app as any).document);
+      externalApps.push(app);
     }
   }
   let document = null;
