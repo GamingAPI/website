@@ -9,7 +9,8 @@ env:
 on:
   workflow_dispatch:
   push:
-
+    branches:
+      - main
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
