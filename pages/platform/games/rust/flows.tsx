@@ -1,6 +1,5 @@
 import {default as AsyncapiRustServer} from '../../../../definitions/rust_server.json';
 import {default as AsyncapiRustProcessor} from '../../../../definitions/rust_processor.json';
-import {default as AsyncapiRustPublicAPI} from '../../../../definitions/rust_public_api.json';
 import { parse, AsyncAPIDocument } from "@asyncapi/parser";
 import "@asyncapi/react-component/styles/default.min.css";
 import {MainMenu, SystemFlowDiagram} from '../../../../components';
@@ -37,7 +36,6 @@ export async function getStaticProps() {
   // validate and parse
   const parsed = await parse(JSON.stringify(AsyncapiRustServer), {path: '../definitions/'});
   const parsed2 = await parse(JSON.stringify(AsyncapiRustProcessor), {path: '../definitions/'});
-  const parsed3 = await parse(JSON.stringify(AsyncapiRustPublicAPI), {path: '../definitions/'});
   documents = documents.map((doc: AsyncAPIDocument) => AsyncAPIDocument.stringify(doc));
   return {
     props: {
