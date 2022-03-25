@@ -1,11 +1,10 @@
-import {default as AsyncapiRustServer} from '../../../../definitions/rust_server.json';
-import {default as AsyncapiRustProcessor} from '../../../../definitions/rust_processor.json';
 import { parse, AsyncAPIDocument } from "@asyncapi/parser";
 import "@asyncapi/react-component/styles/default.min.css";
 import {MainMenu, SystemFlowDiagram} from '../../../../components';
 import { Grid } from '@mui/material';
 import { SideMenu } from '../../../../components/menus/platform/Rust';
 import {TopMenu} from '../../../../components/menus/Public';
+import { RustServices } from "../../../../components/RustServices";
 interface SystemFlowProps{
   documents: any;
   error: any;
@@ -31,15 +30,18 @@ export default function SystemFlow({ documents, error } : SystemFlowProps) {
 
 // This function gets called at build time
 export async function getStaticProps() {
-  let documents: any = [];
+  let parsedDocuments: any = [];
   let error = null;
   // validate and parse
-  const parsed = await parse(JSON.stringify(AsyncapiRustServer), {path: '../definitions/'});
-  const parsed2 = await parse(JSON.stringify(AsyncapiRustProcessor), {path: '../definitions/'});
-  documents = documents.map((doc: AsyncAPIDocument) => AsyncAPIDocument.stringify(doc));
+  const documents = [Object.values(RustServices)].flat();
+  for (const doc of documents) {
+    const parsedDoc = await parse(JSON.stringify(doc));
+    parsedDocuments.push(parsedDoc);
+  }
+  parsedDocuments = parsedDocuments.map((doc: AsyncAPIDocument) => AsyncAPIDocument.stringify(doc));
   return {
     props: {
-      documents: documents,
+      documents: parsedDocuments,
       error
     },
   }

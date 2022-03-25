@@ -1,4 +1,4 @@
-import { parse, AsyncAPIDocument } from "@asyncapi/parser";
+import { parse, AsyncAPIDocument, parseFromUrl } from "@asyncapi/parser";
 import "@asyncapi/react-component/styles/default.min.css";
 import {MainMenu} from '../../../../../components/MainMenu';
 import { SideMenu } from '../../../../../components/menus/platform/Rust';
@@ -6,6 +6,11 @@ import { TopMenu } from '../../../../../components/menus/Public';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 import { RustServices } from "../../../../../components/RustServices";
+import path from "path";
+
+var env = process.env.NODE_ENV || 'development';
+const isProduction = env === 'production';
+
 const RustServerAPI: React.FunctionComponent<any> = ({ asyncapi, error }) => {
   return (
     <MainMenu
@@ -28,7 +33,7 @@ export async function getStaticProps(context: any) {
   let error = null;
   try{
     // validate and parse
-    const parsed = await parse(JSON.stringify(application), {path: '../definitions/'});
+    const parsed = await parse(application);
     document = AsyncAPIDocument.stringify(parsed);
   }catch(e){
     error = JSON.stringify(e);

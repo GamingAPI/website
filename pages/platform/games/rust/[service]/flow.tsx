@@ -1,10 +1,13 @@
-import { parse, AsyncAPIDocument } from "@asyncapi/parser";
+import { parse, AsyncAPIDocument, parseFromUrl } from "@asyncapi/parser";
 import "@asyncapi/react-component/styles/default.min.css";
 import {MainMenu, Visualizer} from '../../../../../components';
 import { Grid } from '@mui/material';
+import path from "path";
 import { SideMenu } from '../../../../../components/menus/platform/Rust';
 import { TopMenu } from '../../../../../components/menus/Public';
 import { RustServices } from "../../../../../components/RustServices";
+var env = process.env.NODE_ENV || 'development';
+const isProduction = env === 'production';
 
 const FlowPage: React.FunctionComponent<any> = ({ asyncapi, externalApplications, error }) => {
   let flowComponent;
@@ -39,8 +42,8 @@ export async function getStaticPaths() {
 export async function getStaticProps(context: any) {
   const service = context.params.service;
   if(service === undefined || RustServices[service] === undefined) return {props: {error: 'Could not find service'}};
-  const externalApps = [];
-  let application;
+  const externalApps: any[] = [];
+  let application: any;
   for (const [name, app] of Object.entries(RustServices)) {
     if(name === service){
       application = app;
@@ -51,14 +54,14 @@ export async function getStaticProps(context: any) {
   let document = null;
   let error = null;
   // validate and parse
-  const parsed = await parse(JSON.stringify(application), {path: '../definitions/'});
+  const parsed = await parse(application);
   const rel: any = {};
   for (const [path, _] of Object.entries(parsed.channels())) {
     rel[path] = [];
   }
 
   for (const app of externalApps) {
-    const parsedApp = await parse(JSON.stringify(app), {path: '../definitions/'});
+    const parsedApp = await parse(app);
     for (const [path, channel] of Object.entries(parsedApp.channels())) {
       if(rel[path] !== undefined){
         if(channel.hasPublish()) {

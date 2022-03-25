@@ -1,12 +1,13 @@
-
-import { parse, AsyncAPIDocument} from "@asyncapi/parser";
+import { parse, AsyncAPIDocument, parseFromUrl} from "@asyncapi/parser";
 import "@asyncapi/react-component/styles/default.min.css";
 import {MainMenu} from '../../../../../components/MainMenu';
 import { AsyncApiComponentWP } from "@asyncapi/react-component";
 import { SideMenu } from '../../../../../components/menus/platform/rust/Services';
 import { TopMenu } from '../../../../../components/menus/Public';
 import { RustServices } from "../../../../../components/RustServices";
-
+import path from "path";
+var env = process.env.NODE_ENV || 'development';
+const isProduction = env === 'production';
 export async function getStaticPaths() {
   const paths = Object.keys(RustServices).map((key) => `/platform/games/rust/${key}/api`);
   return {
@@ -48,7 +49,7 @@ export async function getStaticProps(context: any) {
   let error = null;
   try{
     // validate and parse
-    const parsed = await parse(JSON.stringify(application), {path: '../definitions/'});
+    const parsed = await parse(application);
     document = AsyncAPIDocument.stringify(parsed);
   }catch(e){
     error = JSON.stringify(e);
