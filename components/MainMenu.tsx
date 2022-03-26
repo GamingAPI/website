@@ -112,6 +112,7 @@ export const MainMenu: React.FunctionComponent<MainMenuProps> = (props) => {
       </Head>
       <CssBaseline />
       <AppBar position="fixed" open={open} style={{backgroundColor:"#fff"}}>
+        <div style={{width:"100%", height:"60px", position: "relative", top: "0", backgroundColor:"#dfab04"}}><Typography align="center" variant="h5">IN BETA</Typography><Typography align="center" variant="subtitle1">A project idea coming to life</Typography></div>
         <Toolbar>
           <IconButton
             color="inherit"

@@ -1,8 +1,6 @@
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
-import SummarizeIcon from '@mui/icons-material/Summarize';
-import ArticleIcon from '@mui/icons-material/Article';
 import ModeIcon from '@mui/icons-material/Mode';
-import { Link, List, ListItem, ListItemText, ListItemIcon, Typography, Divider } from '@mui/material';
+import { Link, List, ListItem, ListItemText, ListItemIcon, Typography } from '@mui/material';
 import * as React from 'react';
 import { HtmlTooltip } from '../../HtmlTooltip';
 import StorageIcon from '@mui/icons-material/Storage';
