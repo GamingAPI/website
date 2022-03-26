@@ -91,7 +91,7 @@ jobs:
           OWNER: ${{ github.repository_owner }}
 
       - name: Deploy the stack
-        run: ssh production "cd ~/deployments/$OWNER_$REPO_$SHA && docker stack deploy -c ./docker-compose.yml gaming_api_website"
+        run: ssh production "cd ~/deployments/$OWNER_$REPO_$SHA && (export AUTH_GITHUB_ID=${{ secrets.AUTH_GITHUB_ID }}; export AUTH_GITHUB_SECRET=${{ secrets.AUTH_GITHUB_SECRET }}; export NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}; export NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}; docker stack deploy -c ./docker-compose.yml gaming_api_website)"
         env:
           SHA: ${{ github.sha }}
           REPO: ${{ github.event.repository.name }}

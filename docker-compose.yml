@@ -6,6 +6,11 @@ services:
     ports:
       - 3000
     restart: unless-stopped
+    environment:
+      AUTH_GITHUB_ID: "${AUTH_GITHUB_ID}"
+      AUTH_GITHUB_SECRET: "${AUTH_GITHUB_SECRET}"
+      NEXTAUTH_SECRET: "${NEXTAUTH_SECRET}"
+      NEXTAUTH_URL: "${NEXTAUTH_URL}"
     deploy:
       replicas: 1
       update_config:
