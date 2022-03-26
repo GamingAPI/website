@@ -66,18 +66,6 @@ export const TopMenu: React.FunctionComponent<any> = () => {
           Developer platform
           </Link>
         </HtmlTooltip>
-        <HtmlTooltip
-          title={
-            <React.Fragment>
-              <Typography variant="caption" color="inherit">Why should you care about this project?</Typography>
-            </React.Fragment>
-          }
-          placement="bottom"
-        >
-          <Link href="/vision" style={{margin: "0 10px 0 10px"}} variant="h6" color={"#282a36"}>
-          Vision
-          </Link>
-        </HtmlTooltip>
       </Grid>
       {profileMenu}
     </Grid>

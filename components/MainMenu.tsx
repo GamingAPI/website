@@ -155,7 +155,7 @@ export const MainMenu: React.FunctionComponent<MainMenuProps> = (props) => {
         </main>
         <footer>
           <Typography variant="overline" className="title">
-            masterpiece from <a href='https://eventstack.tech'>EventStack</a>
+            <a href='https://eventstack.tech'>EventStack</a>
           </Typography>
         </footer>
         <link

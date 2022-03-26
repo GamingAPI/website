@@ -6,63 +6,13 @@ import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 import Image from 'next/image';
 import { Masonry } from '@mui/lab';
 import { TopMenu } from '../components/menus/Public';
+import Link from 'next/link';
 
 const Main: React.FunctionComponent<any> = () => {
 	return (
 		<MainMenu hideSideMenu={true} topMenu={<TopMenu />}>
 			<Grid container spacing={10} justifyContent='center' alignItems='center'>
-				<Grid item xs={12} md={7} container spacing={6}>
-					<Grid item xs={12}>
-						<Typography variant='h2' className='title'>
-							Supported games
-						</Typography>
-					</Grid>
-					<Grid item xs={12}>
-						<Masonry columns={{ xs: 1, sm: 2, md: 3 }} spacing={2}>
-							<Paper key='rustgame' sx={{ height: 300 }}>
-								<div
-									style={{
-										width: '100%',
-										height: '100%',
-										position: 'relative',
-									}}
-								>
-									<Image
-										alt='Rust'
-										src='/img/games/23bbfde495802aab16bba40542f610cc.png'
-										layout='fill'
-										objectFit='contain'
-									/>
-								</div>
-							</Paper>
-							<Paper key='TBD1' sx={{ minHeight: 100 }}>
-								<Typography variant='h2' className='title' align='center'>
-									TBD
-								</Typography>
-							</Paper>
-							<Paper key='TBD2' sx={{ minHeight: 150 }}>
-								<Typography variant='h2' className='title' align='center'>
-									TBD
-								</Typography>
-							</Paper>
-							<Paper key='TBD3' sx={{ minHeight: 40 }}>
-								<Typography variant='h2' className='title' align='center'>
-									TBD
-								</Typography>
-							</Paper>
-							<Paper key='TBD4' sx={{ minHeight: 80 }}>
-								<Typography variant='h2' className='title' align='center'>
-									TBD
-								</Typography>
-							</Paper>
-							<Paper key='TBD5' sx={{ minHeight: 150 }}>
-								<Typography variant='h2' className='title' align='center'>
-									TBD
-								</Typography>
-							</Paper>
-						</Masonry>
-					</Grid>
-				</Grid>
+
 				<Grid item xs={12} md={7} container spacing={6}>
 					<Grid item xs={12} md={6} container spacing={4}>
 						<Grid item xs={12}>
@@ -78,7 +28,7 @@ const Main: React.FunctionComponent<any> = () => {
 							</Typography>
 						</Grid>
 						<Grid item xs={12}>
-							<Button variant='outlined' style={{ float: 'right' }}>
+							<Button href="/platform/games" variant='outlined' style={{ float: 'right' }}>
 								Find your API
 							</Button>
 						</Grid>
@@ -128,14 +78,68 @@ await client.subscribeToRustServerStarted((message) => {
 						xs={12}
 					>
 						<Grid item xs={2}>
-							<Button variant='outlined'>TypeScript/JS</Button>
+							<Button variant='outlined' disabled={true}>TypeScript/JS</Button>
 						</Grid>
 						<Grid item xs={2}>
-							<Button variant='outlined'>.NET</Button>
+							<Button variant='outlined' disabled={true}>.NET</Button>
 						</Grid>
 						<Grid item xs={2}>
-							<Button variant='outlined'>Go</Button>
+							<Button variant='outlined' disabled={true}>Go</Button>
 						</Grid>
+					</Grid>
+				</Grid>
+				<Grid item xs={12} md={7} container spacing={6}>
+					<Grid item xs={12}>
+						<Typography variant='h2' className='title'>
+							Supported games
+						</Typography>
+					</Grid>
+					<Grid item xs={12}>
+						<Masonry columns={{ xs: 1, sm: 2, md: 3 }} spacing={2}>
+							<Link href="/platform/games/rust">
+								<Paper key='rustgame' sx={{ height: 300 }} >
+									<div
+										style={{
+											width: '100%',
+											height: '100%',
+											position: 'relative',
+										}}
+									>
+										<Image
+											alt='Rust'
+											src='/img/games/23bbfde495802aab16bba40542f610cc.png'
+											layout='fill'
+											objectFit='contain'
+										/>
+									</div>
+								</Paper>
+							</Link>
+							<Paper key='TBD1' sx={{ minHeight: 100 }}>
+								<Typography variant='h2' className='title' align='center'>
+									TBD
+								</Typography>
+							</Paper>
+							<Paper key='TBD2' sx={{ minHeight: 150 }}>
+								<Typography variant='h2' className='title' align='center'>
+									TBD
+								</Typography>
+							</Paper>
+							<Paper key='TBD3' sx={{ minHeight: 40 }}>
+								<Typography variant='h2' className='title' align='center'>
+									TBD
+								</Typography>
+							</Paper>
+							<Paper key='TBD4' sx={{ minHeight: 80 }}>
+								<Typography variant='h2' className='title' align='center'>
+									TBD
+								</Typography>
+							</Paper>
+							<Paper key='TBD5' sx={{ minHeight: 150 }}>
+								<Typography variant='h2' className='title' align='center'>
+									TBD
+								</Typography>
+							</Paper>
+						</Masonry>
 					</Grid>
 				</Grid>
 			</Grid>
