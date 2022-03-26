@@ -63,7 +63,7 @@ const Main: React.FunctionComponent<any> = () => {
               </Typography>
             </Grid>
             <Grid item xs={12} style={{height:"300px"}}>
-              <Button variant="outlined" href="/platform/games" style={{float:"right"}}>see game flows</Button>
+              <Button variant="outlined" href="/platform/games/rust/flows" style={{float:"right"}}>see game flows</Button>
             </Grid>
           </Grid>
           <Grid item xs={12} md={6}>
@@ -90,7 +90,7 @@ const Main: React.FunctionComponent<any> = () => {
               </Typography>
             </Grid>
             <Grid item xs={12}>
-              <Button variant="outlined" href="/platform/games" style={{float:"right"}}>see application flows</Button>
+              <Button variant="outlined" href="/platform/games/rust/server/flow" style={{float:"right"}}>see application flows</Button>
             </Grid>
           </Grid>
           <Grid item xs={12} style={{height: '220px'}}>
