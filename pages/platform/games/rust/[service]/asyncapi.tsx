@@ -6,15 +6,11 @@ import { TopMenu } from '../../../../../components/menus/Public';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 import { RustServices } from "../../../../../components/RustServices";
-import path from "path";
 
-var env = process.env.NODE_ENV || 'development';
-const isProduction = env === 'production';
-
-const RustServerAPI: React.FunctionComponent<any> = ({ asyncapi, error }) => {
+const RustServerAPI: React.FunctionComponent<any> = ({ asyncapi, service, name, description }) => {
   return (
     <MainMenu
-      sideMenu={<SideMenu/>}
+      sideMenu={<SideMenu service={service} name={name} description={description}/>}
       topMenu={<TopMenu/>}
     >
       <SyntaxHighlighter language="json" style={dracula}>
@@ -33,7 +29,7 @@ export async function getStaticProps(context: any) {
   let error = null;
   try{
     // validate and parse
-    const parsed = await parse(application);
+    const parsed = await parse(application.document);
     document = AsyncAPIDocument.stringify(parsed);
   }catch(e){
     error = JSON.stringify(e);
@@ -42,6 +38,9 @@ export async function getStaticProps(context: any) {
   return {
     props: {
       asyncapi: document,
+      service,
+      name: application.name,
+      description: application.description,
       error
     },
   }

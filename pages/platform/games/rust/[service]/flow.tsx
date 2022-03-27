@@ -5,10 +5,8 @@ import { Grid } from '@mui/material';
 import { SideMenu } from '../../../../../components/menus/platform/rust/Services';
 import { TopMenu } from '../../../../../components/menus/Public';
 import { RustServices } from "../../../../../components/RustServices";
-var env = process.env.NODE_ENV || 'development';
-const isProduction = env === 'production';
 
-const FlowPage: React.FunctionComponent<any> = ({ asyncapi, externalApplications, error }) => {
+const FlowPage: React.FunctionComponent<any> = ({ asyncapi, externalApplications, error, service, name, description }) => {
   let flowComponent;
   if(error || asyncapi === undefined) {
     flowComponent=<h1>Could not show flow</h1>
@@ -21,7 +19,7 @@ const FlowPage: React.FunctionComponent<any> = ({ asyncapi, externalApplications
   }
   return (
     <MainMenu
-      sideMenu={<SideMenu/>}
+      sideMenu={<SideMenu service={service} name={name} description={description} />}
       topMenu={<TopMenu/>}
     >
       {flowComponent}
@@ -42,10 +40,10 @@ export async function getStaticProps(context: any) {
   const service = context.params.service;
   if(service === undefined || RustServices[service] === undefined) return {props: {error: 'Could not find service'}};
   const externalApps: any[] = [];
-  let application: any;
+  let serviceApp: any;
   for (const [name, app] of Object.entries(RustServices)) {
     if(name === service){
-      application = app;
+      serviceApp = app;
     } else {
       externalApps.push(app);
     }
@@ -53,14 +51,14 @@ export async function getStaticProps(context: any) {
   let document = null;
   let error = null;
   // validate and parse
-  const parsed = await parse(application);
+  const parsed = await parse(serviceApp.document);
   const rel: any = {};
   for (const [path, _] of Object.entries(parsed.channels())) {
     rel[path] = [];
   }
 
   for (const app of externalApps) {
-    const parsedApp = await parse(app);
+    const parsedApp = await parse(app.document);
     for (const [path, channel] of Object.entries(parsedApp.channels())) {
       if(rel[path] !== undefined){
         if(channel.hasPublish()) {
@@ -95,6 +93,9 @@ export async function getStaticProps(context: any) {
     props: {
       externalApplications: JSON.stringify(externalApplications),
       asyncapi: document,
+      service,
+      name: serviceApp.name,
+      description: serviceApp.description,
       error
     },
   }

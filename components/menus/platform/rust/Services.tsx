@@ -7,12 +7,12 @@ import * as React from 'react';
 import { HtmlTooltip } from '../../../HtmlTooltip';
 import StorageIcon from '@mui/icons-material/Storage';
 
-export const SideMenu: React.FunctionComponent<any> = ({service}) => {
+export const SideMenu: React.FunctionComponent<any> = ({service, name, description}) => {
   const serviceMenuItems = 
 	<>
     <Divider />
     <ListItem>
-    <ListItemText primary={"serviceName"} secondary={"serviceDescription"}/>
+    <ListItemText primary={name} secondary={description}/>
     </ListItem>
     
 		<HtmlTooltip
