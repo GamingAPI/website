@@ -83,18 +83,7 @@ export const MainMenu: React.FunctionComponent<MainMenuProps> = (props) => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(startOpenSideMenu);
   if(!topMenu) {
-    topMenu = (<><Link href="/" style={{margin: "0 10px 0 10px"}} variant="h6" color={"#282a36"}>
-    About
-  </Link>
-  <Link href="/services/flows" style={{margin: "0 10px 0 10px"}} variant="h6" color={"#282a36"}>
-    Services
-  </Link>
-  <Link href="/games" style={{margin: "0 10px 0 10px"}} variant="h6" color={"#282a36"}>
-    Games
-  </Link>
-  <Link href="/tools" style={{margin: "0 10px 0 10px"}} variant="h6" color={"#282a36"}>
-    Tools
-  </Link></>);
+    topMenu = (<></>);
   }
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -107,7 +96,7 @@ export const MainMenu: React.FunctionComponent<MainMenuProps> = (props) => {
   return (
     <Box sx={{ display: 'flex' }}>
       <Head>
-        <title>Gaming API</title>
+        <title>GamingAPI</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <CssBaseline />

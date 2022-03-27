@@ -1,7 +1,7 @@
 import { parse, AsyncAPIDocument, parseFromUrl } from "@asyncapi/parser";
 import "@asyncapi/react-component/styles/default.min.css";
 import {MainMenu} from '../../../../../components/MainMenu';
-import { SideMenu } from '../../../../../components/menus/platform/Rust';
+import { SideMenu } from '../../../../../components/menus/platform/rust/Services';
 import { TopMenu } from '../../../../../components/menus/Public';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
