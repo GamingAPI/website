@@ -33,7 +33,7 @@ export async function getStaticProps() {
   let parsedDocuments: any = [];
   let error = null;
   // validate and parse
-  const documents = [Object.values(RustServices)].flat();
+  const documents = [Object.values(RustServices).map((app: any) => app.document)].flat();
   for (const doc of documents) {
     const parsedDoc = await parse(JSON.stringify(doc));
     parsedDocuments.push(parsedDoc);
