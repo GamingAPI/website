@@ -1,6 +1,6 @@
 import React from 'react';
 import { AsyncAPIDocument } from '@asyncapi/parser';
-import { FlowDiagram } from './FlowDiagram';
+import { ApplicationFocusView } from '@lagoni/edavisualiser';
 interface VisualizerProps {
   asyncapi: AsyncAPIDocument,
   externalApplications: any[]
@@ -8,6 +8,7 @@ interface VisualizerProps {
 
 export const Visualizer: React.FunctionComponent<VisualizerProps> = ({asyncapi, externalApplications}) => {
   return (
-    asyncapi && (<FlowDiagram parsedSpec={asyncapi} externalApplications={externalApplications} /> )
-  );
+    asyncapi &&
+    <ApplicationFocusView asyncapi={{document: asyncapi}} />
+  )
 };

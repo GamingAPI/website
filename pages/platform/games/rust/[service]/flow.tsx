@@ -1,4 +1,4 @@
-import { parse, AsyncAPIDocument, parseFromUrl } from "@asyncapi/parser";
+import { parse, AsyncAPIDocument } from "@asyncapi/parser";
 import "@asyncapi/react-component/styles/default.min.css";
 import {MainMenu, Visualizer} from '../../../../../components';
 import { Grid } from '@mui/material';

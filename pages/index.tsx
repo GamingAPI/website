@@ -11,80 +11,73 @@ import Link from 'next/link';
 const Main: React.FunctionComponent<any> = () => {
 	return (
 		<MainMenu hideSideMenu={true} topMenu={<TopMenu />}>
-			<Grid container spacing={10} justifyContent='center' alignItems='center'>
-
-				<Grid item xs={12} md={7} container spacing={6}>
-					<Grid item xs={12} md={6} container spacing={4}>
+			<Grid container spacing={6} justifyContent='center' alignItems='center'>
+				<Grid item xs={11} container spacing={6}>
+					<Grid item md={12} lg={6} container spacing={6}>
+						<Grid item xs={12} md={6} container spacing={4}>
+							<Grid item xs={12}>
+								<Typography variant='h2' className='title'>
+									A log of events
+								</Typography>
+							</Grid>
+							<Grid item xs={12}>
+								<Typography variant='h6' className='title'>
+									All in-game events are saved on a log, making sure you can interact with them whenever you need them.
+								</Typography>
+							</Grid>
+						</Grid>
+						<Grid item xs={12} md={6}>
+							<div
+								style={{ width: '100%', height: '100%', position: 'relative' }}
+							>
+								<Image
+									alt='Rust'
+									src='/img/api.png'
+									layout='fill'
+									objectFit='contain'
+								/>
+							</div>
+						</Grid>
+					</Grid>
+					<Grid item md={12} lg={6}>
 						<Grid item xs={12}>
 							<Typography variant='h2' className='title'>
-								Well defined API
+								Easy integration
 							</Typography>
 						</Grid>
 						<Grid item xs={12}>
-							<Typography variant='h6' className='title'>
-								Interacting with in-game events as easy as installing a library.
-								Interact either through a REST interface, or through events over
-								NATS.
+							<Typography variant='subtitle1' className='title'>
+								Interacting with in-game events as easy as installing a library. Interact either through a REST interface, or through events over NATS.
 							</Typography>
 						</Grid>
 						<Grid item xs={12}>
-							<Button href="/platform/games" variant='outlined' style={{ float: 'right' }}>
-								Find your API
-							</Button>
-						</Grid>
-					</Grid>
-					<Grid item xs={12} md={6}>
-						<div
-							style={{ width: '100%', height: '100%', position: 'relative' }}
-						>
-							<Image
-								alt='Rust'
-								src='/img/api.png'
-								layout='fill'
-								objectFit='contain'
-							/>
-						</div>
-					</Grid>
-				</Grid>
-				<Grid item xs={12} md={7} container spacing={2}>
-					<Grid item xs={12}>
-						<Typography variant='h2' className='title'>
-							Generated libraries for easy integration
-						</Typography>
-					</Grid>
-					<Grid item xs={12}>
-						<Typography variant='h6' className='title'>
-							We have a different clients ready to use with only a few lines of
-							code needed.
-						</Typography>
-					</Grid>
-					<Grid item xs={12}>
-						<SyntaxHighlighter language='typescript' style={dracula}>
-							{`import { NatsAsyncApiClient } from '@eventgamingapi/rust';
+							<SyntaxHighlighter language='typescript' style={dracula}>
+								{`import { NatsAsyncApiClient } from '@eventgamingapi/rust';
 
 const client = new NatsAsyncApiClient();
 await client.connect();
 await client.subscribeToRustServerStarted((message) => {
   console.log(\`Server have started\`)
 });`}
-						</SyntaxHighlighter>
-					</Grid>
-					<Grid
-						item
-						container
-						spacing={10}
-						justifyContent='center'
-						alignItems='center'
-						xs={12}
-					>
-						<Grid item xs={2}>
-							<Button variant='outlined' disabled={true}>TypeScript/JS</Button>
+							</SyntaxHighlighter>
 						</Grid>
-						<Grid item xs={2}>
-							<Button variant='outlined' disabled={true}>.NET</Button>
-						</Grid>
-						<Grid item xs={2}>
-							<Button variant='outlined' disabled={true}>Go</Button>
+						<Grid
+							item
+							container
+							spacing={10}
+							justifyContent='center'
+							alignItems='center'
+							xs={12}
+						>
+							<Grid item xs={2}>
+								<Button variant='outlined' disabled={true}>TypeScript/JS</Button>
+							</Grid>
+							<Grid item xs={2}>
+								<Button variant='outlined' disabled={true}>.NET</Button>
+							</Grid>
+							<Grid item xs={2}>
+								<Button variant='outlined' disabled={true}>Go</Button>
+							</Grid>
 						</Grid>
 					</Grid>
 				</Grid>
@@ -92,6 +85,9 @@ await client.subscribeToRustServerStarted((message) => {
 					<Grid item xs={12}>
 						<Typography variant='h2' className='title'>
 							Supported games
+						</Typography>
+						<Typography variant='subtitle1' className='title'>
+							These are all the supported games that you can interact with.
 						</Typography>
 					</Grid>
 					<Grid item xs={12}>

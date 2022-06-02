@@ -1,15 +1,16 @@
 import { parse, AsyncAPIDocument } from "@asyncapi/parser";
 import "@asyncapi/react-component/styles/default.min.css";
-import {MainMenu, SystemFlowDiagram} from '../../components';
+import {MainMenu, SystemVisualizer} from '../../components';
 import { Grid } from '@mui/material';
 import {SideMenu} from '../../components/menus/platform/index';
 import {TopMenu} from '../../components/menus/Public';
-import path from "path";
 import { RustServices } from "../../components/RustServices";
 
 const SystemFlow: React.FunctionComponent<any> = ({ documents, error }) => {
   const parsedDocuments = documents.map((document: any) => {
     return AsyncAPIDocument.parse(document);
+  }).map((asyncapiDocument: AsyncAPIDocument) => {
+    return {asyncapi: asyncapiDocument}; 
   });
   return (
     <MainMenu
@@ -18,7 +19,7 @@ const SystemFlow: React.FunctionComponent<any> = ({ documents, error }) => {
     >
       <Grid container spacing={3} height={"100vh"} width={"100%"}>
         <Grid item xs={12}>
-          <SystemFlowDiagram parsedSpecs={parsedDocuments} />
+          <SystemVisualizer applications={parsedDocuments} />
         </Grid>
       </Grid>
     </MainMenu>

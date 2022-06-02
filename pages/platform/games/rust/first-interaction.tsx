@@ -37,7 +37,7 @@ const Main: React.FunctionComponent<any> = () => {
                 Setup your game server
               </Typography>
               <Typography variant="overline" className="title">
-                Your game server, regardless of how you set it up, needs to be setup to interact with the GaminAPI network. To do this use one of the following setups:
+                Your game server, regardless of how you set it up, needs to interact with the GaminAPI network. To do this use one of the following setups:
               </Typography>
               <TabContext value={frameworkValue}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
