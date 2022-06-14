@@ -5,6 +5,7 @@ import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import { SideMenu } from '../../../../components/menus/platform/Rust';
 import {TopMenu} from '../../../../components/menus/Public';
+import { RustServices } from "../../../../components/RustServices";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -14,6 +15,23 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 function Services() {
+
+  const serviceComponents = Object.entries(RustServices).map(([serviceName, service]) => {
+    return <a key={`service-${serviceName}`} href={`./${serviceName}/flow`}>
+      <Item style={{padding: 0, width: 400}}>
+        <Grid container spacing={0} height={"100vh"} style={{  
+            backgroundImage: "url(" + "/img/games/rust.jpg" + ")",
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat'
+          }}>
+          <Grid item xs={12}>
+            <Typography variant='h4'>{service.name}</Typography>
+          </Grid>
+        </Grid>
+      </Item>
+    </a>
+  });
   return (
     <MainMenu 
       sideMenu={<SideMenu/>}
@@ -24,34 +42,7 @@ function Services() {
         alignItems="center"
         direction={{ xs: 'column', sm: 'row' }}
       >
-        <a href="./processor/flow">
-          <Item style={{padding: 0, width: 400}}>
-            <Grid container spacing={0} height={"100vh"} style={{  
-                backgroundImage: "url(" + "/img/games/rust.jpg" + ")",
-                backgroundPosition: 'center',
-                backgroundSize: 'cover',
-                backgroundRepeat: 'no-repeat'
-              }}>
-              <Grid item xs={12}>
-                <Typography variant='h4'>The processor</Typography>
-              </Grid>
-            </Grid>
-          </Item>
-        </a>
-        <a href="./server/flow">
-          <Item style={{padding: 0, width: 400}}>
-            <Grid container spacing={0} height={"100vh"} style={{  
-                backgroundImage: "url(" + "/img/games/rust.jpg" + ")",
-                backgroundPosition: 'center',
-                backgroundSize: 'cover',
-                backgroundRepeat: 'no-repeat'
-              }}>
-              <Grid item xs={12}>
-                <Typography variant='h4'>The rust server</Typography>
-              </Grid>
-            </Grid>
-          </Item>
-        </a>
+        {serviceComponents}
       </Stack>
     </MainMenu>
   )

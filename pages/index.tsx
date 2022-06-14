@@ -41,8 +41,8 @@ const Main: React.FunctionComponent<any> = () => {
 					</Grid>
 					<Grid item md={12} lg={6}>
 						<Grid item xs={12}>
-							<Typography variant='h2' className='title'>
-								Easy integration
+							<Typography variant='h1' className='title'>
+								Next generation game servers
 							</Typography>
 						</Grid>
 						<Grid item xs={12}>

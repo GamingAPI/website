@@ -14,7 +14,7 @@ const RustServerAPI: React.FunctionComponent<any> = ({ asyncapi, service, name, 
       topMenu={<TopMenu/>}
     >
       <SyntaxHighlighter language="json" style={dracula}>
-        {asyncapi || '{}'}
+        {JSON.stringify(JSON.parse(asyncapi), null, 4) || '{}'}
       </SyntaxHighlighter>
     </MainMenu>
   )

@@ -7,6 +7,8 @@ import { TopMenu } from '../../../../../components/menus/Public';
 import { RustServices } from "../../../../../components/RustServices";
 
 const FlowPage: React.FunctionComponent<any> = ({ asyncapi, externalApplications, error, service, name, description }) => {
+  // Render on the browser only
+
   let flowComponent;
   if(error || asyncapi === undefined) {
     flowComponent=<h1>Could not show flow</h1>
@@ -29,7 +31,7 @@ const FlowPage: React.FunctionComponent<any> = ({ asyncapi, externalApplications
 export default FlowPage;
 
 export async function getStaticPaths() {
-  const paths = Object.keys(RustServices).map((key) => `/platform/games/rust/${key}/flow`);
+  const paths = Object.keys(RustServices).map((key) => `/platform/games/rust/${key}/flows`);
   return {
     paths,
     fallback: true,
