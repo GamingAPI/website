@@ -63,7 +63,7 @@ export const TopMenu: React.FunctionComponent<any> = () => {
           placement="bottom"
         >
           <Link href="/platform" style={{margin: "0 10px 0 10px"}} variant="h6" color={"#282a36"}>
-          Developer platform
+          Developers
           </Link>
         </HtmlTooltip>
       </Grid>

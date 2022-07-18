@@ -42,11 +42,28 @@ const Main: React.FunctionComponent<any> = () => {
               <TabContext value={frameworkValue}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                   <TabList onChange={handleFrameworkChange} aria-label="lab API tabs example">
-                    <Tab label="uMod local server" value="1" />
-                    <Tab label="uMod docker" value="2" />
+                    <Tab label="uMod docker" value="1" />
+                    <Tab label="uMod docker compose" value="1" />
+                    <Tab label="uMod local server" value="3" />
                   </TabList>
                 </Box>
                 <TabPanel value="1">
+                  <Typography variant="overline" className="title">
+                    This guide help you setup your docker container running the Rust server to interact with the GamingAPI network.
+                  </Typography>
+                  <code>
+                    docker run ghcr.io/gamingapi/rust-docker-image:latest
+                  </code>
+                </TabPanel>
+                <TabPanel value="2">
+                  <Typography variant="overline" className="title">
+                    This guide help you setup your docker container running the Rust server to interact with the GamingAPI network.
+                  </Typography>
+                  <code>
+                    docker run ghcr.io/gamingapi/rust-docker-image:latest
+                  </code>
+                </TabPanel>
+                <TabPanel value="3">
                   <Typography variant="overline" className="title">
                     This guide help you setup your local rust to interact with the GamingAPI network.
                   </Typography>
@@ -57,16 +74,6 @@ const Main: React.FunctionComponent<any> = () => {
                     <li>Download the <a href="https://github.com/GamingEventAPI/umod-rust-server-extension">GamingAPI extensions</a></li>
                     <li>Place the extensions under &lt;server-identity&gt;/RustDedicated_Data/Managed</li>
                     <li>Restart the server</li>
-                  </ol>
-                </TabPanel>
-                <TabPanel value="2">
-                  <Typography variant="overline" className="title">
-                    This guide help you setup your docker container running the Rust server to interact with the GamingAPI network.
-
-                    We highly recommend you use our own docker image: https://github.com/GamingEventAPI/rust-docker-image
-                  </Typography>
-                  <ol>
-                    <li>Install uMod by following one of the many guides: https://www.corrosionhour.com/install-umod-rust-server/</li>
                   </ol>
                 </TabPanel>
               </TabContext>
